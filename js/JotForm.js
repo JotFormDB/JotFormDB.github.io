@@ -31,10 +31,10 @@ var JF = (function(base) {
 
     var _apiKey = null,
         _appName,
-        _baseURL = '//www.jotform.com',
-        _requestURL = '//vicom.jotform.com/api',
-        _requestURLEU = '//vicom.jotform.com/api',
-        _requestURLHIPAA = '//hipaa-api.jotform.com',
+        _baseURL = 'https://www.jotform.com',
+        _requestURL = 'https://vicom.jotform.com/API',
+        _requestURLEU = 'https://vicom.jotform.com/API',
+        _requestURLHIPAA = 'https://hipaa-api.jotform.com',
         _authPath = '/api/oauth.php',
         _loginWindowURL = 'https://www.jotform.com' + _authPath,
         _accessType = 'readOnly',
@@ -1098,8 +1098,9 @@ var JF = (function(base) {
             (limit !== undefined ? "&limit=" + limit : "") +
             (orderby !== undefined ? "&orderby=" + orderby : "") +
             (direction !== undefined ? "," + direction : "");
+            console.log("there");
         _xdr( url, "get", undefined, function(resp) {
-            callback(resp)
+            callback(resp);
         });
     };
 
@@ -1374,7 +1375,9 @@ var JF = (function(base) {
     function createXHRRequest(url, method, data, callback, errback) {
         var req = new XMLHttpRequest();
         if('withCredentials' in req) {
+          console.log("there3");
             req.open(method, url, true);
+            console.log("there4");
             req.setRequestHeader("Content-type","application/x-www-form-urlencoded");
             req.onerror = errback;
             req.onreadystatechange = function() {
@@ -1406,7 +1409,9 @@ var JF = (function(base) {
                     }
                 }
             };
+            console.log("there5");
             req.send(data);
+            console.log("there6");
         }
     }
 
