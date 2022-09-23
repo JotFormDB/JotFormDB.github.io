@@ -3,14 +3,39 @@ function callbk(res){
 }
 
 function statuscallback(res){
+  var status_txt;
+  var details_txt;
   console.log(res["content"]);
-    $('#status').html(res["content"]["workflowStatus"]);
-    try{
-      $('#details').html(res["content"]["workflowStatusDetails"]["text"]);
+  try{
+    status_txt = res["content"]["workflowStatus"];
+    $('#status').html(status_txt);
+    if(status_txt.includes("Approve")){
+      //color to green
+      $('#status').css("color","green");
     }
-    catch(exception){
-      $('#details').html("");
+    else if(status_txt.includes("Deny")){
+      //color to green
+      $('#status').css("color","red");
     }
+    else{
+      $('#status').css("color","orange");
+    }
+  }
+  catch(exception){
+    $('#status').html();
+    $('#status').css("color","black");
+  }
+  
+  try{
+    details_txt = res["content"]["workflowStatusDetails"]["text"];
+    details_color = res["content"]["workflowStatusDetails"]["buttonColor"];
+    $('#details').html(details_txt);
+    $('#details').css("color",details_color);
+  }
+  catch(exception){
+    $('#details').html("");
+    $('#details').css("color","black");
+  }
 }
 
 
