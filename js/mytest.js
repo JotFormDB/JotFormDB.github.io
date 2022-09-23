@@ -1,5 +1,5 @@
 function callbk(res){
-  //console.log(res);
+  console.log(res);
 }
 
 //5381705172429391458
