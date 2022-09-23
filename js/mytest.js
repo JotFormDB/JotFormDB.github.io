@@ -13,13 +13,14 @@ function statuscallback(res){
     }
 }
 
+function btn_down(){
+  $.getJSON("https://vicom.jotform.com/API/submission/" + $('#subid').val() + "?addWorkflowStatus=1&callback=?",statuscallback)
+}
+
 //5381705172429391458
 
 var formid = "222338948374870";
 
-$('#subdown').mousedown(function(){
-  $.getJSON("https://vicom.jotform.com/API/submission/" + $('#subid').val() + "?addWorkflowStatus=1&callback=?",statuscallback)
-  }
-  )
+$('#subdown').mousedown(btn_down)
 
 $.getJSON("https://vicom.jotform.com/API/form/" + formid + "/submissions?apiKey=d17748747ac8e76618def4b967347ec5&addWorkflowStatus=1&callback=?",callbk);
