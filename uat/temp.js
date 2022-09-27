@@ -66,3 +66,7 @@ window.addbtnlisten = () => {
 window.jf_getsubmissions = (formid,callbk,offset=0) => {
   $.getJSON("https://vicom.jotform.com/API/form/" + formid + "/submissions?apiKey=d17748747ac8e76618def4b967347ec5&addWorkflowStatus=1&offset=" + offset + "&limit=1000&callback=?", callbk);
 }
+
+window.jf_getsubmission = (subid,callbk) => {
+   $.getJSON("https://vicom.jotform.com/API/submission/" + subid + "?apiKey=d17748747ac8e76618def4b967347ec5&addWorkflowStatus=1&callback=?", callbk);
+}
