@@ -72,6 +72,6 @@ window.jf_getsubmission = (subid,callbk) => {
 }
 
 window.jf_getforms = (callbk) => {
-   $.getJSON("https://vicom.jotform.com/API/user/forms?apiKey=d17748747ac8e76618def4b967347ec5&callback=?", callbk);
+   $.getJSON("https://vicom.jotform.com/API/user/forms?apiKey=d17748747ac8e76618def4b967347ec5&limit=1000&callback=?", callbk);
 }
 
