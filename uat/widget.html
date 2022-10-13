@@ -10,7 +10,7 @@
 
 <body>
     <div id="main">
-        <h3>Department v1</h3>
+        <h3>Department v2</h3>
         <select name="depts" id="depts" onchange="change()">
             <option value="-1">None</option>
         </select>
@@ -18,7 +18,7 @@
     <script type="text/javascript">
 
         var list;
-        var touched;
+        var touched = {};
 
         $.getJSON("https://vicom.jotform.com/API/submission/5414505222428424897?apiKey=d17748747ac8e76618def4b967347ec5&callback=?", function (data) {
             list = JSON.parse(data.content.answers['4'].answer);
