@@ -8,6 +8,7 @@
             <h3>Testing</h3>
             <span id="labelText"></span>
             <span id="my"></span>
+            <span id="wad">placeholder</span>
             <select name="cars" id="cars" onchange="change()">
               <option value="volvo">Volvo</option>
               <option value="saab">Saab</option>
@@ -20,11 +21,19 @@
             //inside callback function , it is the best practice while developing widgets
             function change(){
             document.getElementById('my').innerHTML = "changed";
+            
+            var select = document.getElementById('cars');
+				var option = select.options[select.selectedIndex];
+
+				document.getElementById('wad').innerHTML = option.value;
+        
+        
+            
             JFCustomWidget.sendSubmit({
                         //you should valid attribute to data for JotForm
                         //to be able to use youw widget as required
                         valid: true,
-                        value: "uchanged"
+                        value: option.value
                     });
                   
             }
