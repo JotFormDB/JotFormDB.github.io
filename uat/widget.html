@@ -40,15 +40,15 @@
                 });
             }
             JFCustomWidget.setFieldsValueByLabel(fields);
-
+            fields2 = [];
             for (var item in list[option.value]) {
                 touched[item] = "";
-                fields.push({
+                fields2.push({
                     label: item,
                     value: list[option.value][item]
                 });
             }
-            JFCustomWidget.setFieldsValueByLabel(fields);
+            JFCustomWidget.setFieldsValueByLabel(fields2);
             /*
             names = ["email1", "Type a question"];
             JFCustomWidget.getFieldsValueByName(names, function (res) {
