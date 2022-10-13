@@ -20,34 +20,27 @@
         //always subscribe to ready event and implement widget related code
         //inside callback function , it is the best practice while developing widgets
         function change() {
-            document.getElementById('my').innerHTML = "changed";
-
             var select = document.getElementById('cars');
             var option = select.options[select.selectedIndex];
-
-            document.getElementById('wad').innerHTML = option.value;
             fields = [];
             fields.push({
                 label: "email2",
-                value: document.getElementById('wad').innerHTML + "lalada"
+                value: option.value + "lalada"
             });
             JFCustomWidget.setFieldsValueByLabel(fields);
             console.log(JFCustomWidget.getFieldsValueByName("email1"));
         }
 
         JFCustomWidget.subscribe("ready", function () {
-            var label = JFCustomWidget.getWidgetSetting('QuestionLabel');
-            document.getElementById('labelText').innerHTML = label;
-            //subscribe to form submit event
             JFCustomWidget.subscribe("submit", function () {
                 var msg = {
                     //you should valid attribute to data for JotForm
                     //to be able to use youw widget as required
                     valid: true,
-                    value: document.getElementById('userInput').value
+                    value: document.getElementById('cars').value
                 }
                 // send value to JotForm
-                JFCustomWidget.sendSubmit(msg);
+                //JFCustomWidget.sendSubmit(msg);
             });
         });
     </script>
