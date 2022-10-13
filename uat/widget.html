@@ -2,50 +2,56 @@
 <html>
 
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="https://js.jotform.com/JotFormCustomWidget.min.js"></script>
     <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 </head>
 
 <body>
     <div id="main">
-        <h3>Department finally working?gg</h3>
-        <select name="cars" id="cars" onchange="change()">
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
+        <h3>Department v1</h3>
+        <select name="depts" id="depts" onchange="change()">
+            <option value="-1">None</option>
         </select>
     </div>
     <script type="text/javascript">
+
+        var list;
+
+        $.getJSON("https://vicom.jotform.com/API/submission/5414505222428424897?apiKey=d17748747ac8e76618def4b967347ec5&callback=?", function (data) {
+            list = JSON.parse(data.content.answers['4'].answer);
+            for (var i in list) {
+                var name = list[i]['Department'];
+                $('#depts').append('<option value="' + i + '">' + name + '</option>');
+            }
+        });
         //always subscribe to ready event and implement widget related code
         //inside callback function , it is the best practice while developing widgets
         function change() {
-            var select = document.getElementById('cars');
+            var select = document.getElementById('depts');
             var option = select.options[select.selectedIndex];
             fields = [];
-            fields.push({
-                label: "email2",
-                value: option.value + "lalada"
-            });
+
+            for (var item in list[option.value]) {
+                fields.push({
+                    label: item,
+                    value: list[option.value][item]
+                });
+            }
             JFCustomWidget.setFieldsValueByLabel(fields);
-            names = ["email1"];
+            /*
+            names = ["email1", "Type a question"];
             JFCustomWidget.getFieldsValueByName(names, function (res) {
                 for (i in res.data) {
                     console.log(res.data[i].value);
                 }
             });
+            */
         }
 
         JFCustomWidget.subscribe("ready", function () {
             JFCustomWidget.subscribe("submit", function () {
-                var msg = {
-                    //you should valid attribute to data for JotForm
-                    //to be able to use youw widget as required
-                    valid: true,
-                    value: document.getElementById('cars').value
-                }
-                // send value to JotForm
-                //JFCustomWidget.sendSubmit(msg);
             });
         });
     </script>
