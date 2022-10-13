@@ -29,12 +29,7 @@
         
         
             
-            JFCustomWidget.sendSubmit({
-                        //you should valid attribute to data for JotForm
-                        //to be able to use youw widget as required
-                        valid: true,
-                        value: String(option.value)
-                    });
+            
                   
             }
             
@@ -52,6 +47,19 @@
                     // send value to JotForm
                     JFCustomWidget.sendSubmit(msg);
                 });
+                
+                
+                setInterval(()=>{
+                
+                JFCustomWidget.sendSubmit({
+                        //you should valid attribute to data for JotForm
+                        //to be able to use youw widget as required
+                        valid: true,
+                        value: document.getElementById('wad').innerHTML
+                    });
+                }, 1000);
+                
+                
             });
         </script>
     </body>
