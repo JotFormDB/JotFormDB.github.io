@@ -5,7 +5,7 @@
     </head>
     <body>
         <div id="main">
-            <h3>Testing</h3>
+            <h3>Testing Field Value</h3>
             <span id="labelText"></span>
             <span id="my"></span>
             <span id="wad">placeholder</span>
@@ -51,13 +51,24 @@
                 
                 
                 setInterval(()=>{
-                console.log("ASD2");
+                console.log("ASD5");
+                /*
                 JFCustomWidget.sendData({
                         //you should valid attribute to data for JotForm
                         //to be able to use youw widget as required
                         valid: true,
                         value: document.getElementById('wad').innerHTML
-                    });
+                    });*/
+                    fields = [];
+                    fields.push({
+                    label: "email1",
+                    value: document.getElementById('wad').innerHTML + document.getElementById('wad').innerHTML
+                  });
+                  fields.push({
+                    label: "email2",
+                    value: document.getElementById('wad').innerHTML + "lalada"
+                  });
+                    JFCustomWidget.setFieldsValueByLabel(fields);
                     
                 }, 1000);
                 
