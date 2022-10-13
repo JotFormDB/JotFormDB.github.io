@@ -50,13 +50,9 @@
                 
                 
                 
-                
-                
-            });
-            
-            setInterval(()=>{
+                setInterval(()=>{
                 console.log("ASD2");
-                JFCustomWidget.sendSubmit({
+                JFCustomWidget.sendData({
                         //you should valid attribute to data for JotForm
                         //to be able to use youw widget as required
                         valid: true,
@@ -64,6 +60,10 @@
                     });
                     
                 }, 1000);
+                
+            });
+            
+            
                 
         </script>
     </body>
