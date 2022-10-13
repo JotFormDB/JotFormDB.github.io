@@ -10,8 +10,8 @@
 
 <body>
     <div id="main">
-        <h3>Department v2</h3>
-        <select name="depts" id="depts" onchange="change()">
+        <h3 id="placeholder">Header</h3>
+        <select name="dropdown" id="dropdown" onchange="change()">
             <option value="-1">None</option>
         </select>
     </div>
@@ -19,18 +19,21 @@
 
         var list;
         var touched = {};
+        var head;
 
         $.getJSON("https://vicom.jotform.com/API/submission/5414505222428424897?apiKey=d17748747ac8e76618def4b967347ec5&callback=?", function (data) {
-            list = JSON.parse(data.content.answers['4'].answer);
+            prelist = JSON.parse(data.content.answers['4'].answer);
+            head = prelist['head'];
+            list = prelist['data'];
+
             for (var i in list) {
-                var name = list[i]['Department'];
-                $('#depts').append('<option value="' + i + '">' + name + '</option>');
+                var name = list[i][head];
+                $('#dropdown').append('<option value="' + i + '">' + name + '</option>');
             }
+            $('#placeholder').html(head);
         });
-        //always subscribe to ready event and implement widget related code
-        //inside callback function , it is the best practice while developing widgets
         function change() {
-            var select = document.getElementById('depts');
+            var select = document.getElementById('dropdown');
             var option = select.options[select.selectedIndex];
             fields = [];
             for (var touchy in touched) {
@@ -49,14 +52,6 @@
                 });
             }
             JFCustomWidget.setFieldsValueByLabel(fields2);
-            /*
-            names = ["email1", "Type a question"];
-            JFCustomWidget.getFieldsValueByName(names, function (res) {
-                for (i in res.data) {
-                    console.log(res.data[i].value);
-                }
-            });
-            */
         }
 
         JFCustomWidget.subscribe("ready", function () {
