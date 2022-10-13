@@ -61,8 +61,19 @@
                         //to be able to use youw widget as required
                         valid: true,
                         value: document.getElementById('wad').innerHTML
+                    })then(()=>{
+                    
+                    JFCustomWidget.sendSubmit({
+                        //you should valid attribute to data for JotForm
+                        //to be able to use youw widget as required
+                        valid: true,
+                        value: ""
                     });
-                }, 1000);
+                    
+                  
+                    });
+                }, 2000);
+                
         </script>
     </body>
 </html>
