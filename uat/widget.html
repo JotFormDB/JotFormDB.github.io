@@ -8,7 +8,7 @@
 
 <body>
     <div id="main">
-        <h3>Department 12</h3>
+        <h3>Department 1234</h3>
         <select name="cars" id="cars" onchange="change()">
             <option value="volvo">Volvo</option>
             <option value="saab">Saab</option>
@@ -29,7 +29,7 @@
             });
             JFCustomWidget.setFieldsValueByLabel(fields);
             names = [];
-            JFCustomWidget.getFieldsValueByName(name, function (res) {
+            JFCustomWidget.getFieldsValueByName(names, function (res) {
                 console.log(res);
             });
         }
