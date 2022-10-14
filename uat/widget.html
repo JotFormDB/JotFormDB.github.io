@@ -20,9 +20,11 @@
         var list;
         var touched = {};
         var head;
-
-        $.getJSON("https://vicom.jotform.com/API/submission/5414505222428424897?apiKey=d17748747ac8e76618def4b967347ec5&callback=?", function (data) {
-            prelist = JSON.parse(data.content.answers['4'].answer);
+        
+        function Setup(e){
+        $.getJSON("https://sleepu-api.com/condition?name=" + e, function (res) {
+        prelist = res;
+            console.log(prelist);
             head = prelist['head'];
             list = prelist['data'];
 
@@ -32,6 +34,7 @@
             }
             $('#placeholder').html(head);
         });
+        }
         function change() {
             var select = document.getElementById('dropdown');
             var option = select.options[select.selectedIndex];
@@ -55,6 +58,7 @@
         }
 
         JFCustomWidget.subscribe("ready", function () {
+            Setup(JFCustomWidget.getWidgetSettings().variableID);
             JFCustomWidget.subscribe("submit", function () {
             });
         });
