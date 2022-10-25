@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
@@ -8,7 +7,7 @@
 </head>
 
 <body>
-    <div id="main">
+    <div id="main">    
         <h3 id="placeholder">Header</h3>
         <select name="dropdown" id="dropdown" onchange="change()">
             <option value="-1">None</option>
@@ -21,7 +20,7 @@
         var head;
         
         function Setup(e){
-        $.getJSON("https://sleepu-api.com/condition?name=" + e, function (res) {
+        $.getJSON("https://sleepu-api.com/condition?name=" + "DEPT_LIST", function (res) {
         prelist = res;
             console.log(prelist);
             head = prelist['head'];
@@ -61,6 +60,8 @@
             JFCustomWidget.subscribe("submit", function () {
             });
         });
+        
+        Setup("");
     </script>
 </body>
 
