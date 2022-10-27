@@ -20,7 +20,7 @@
         var head;
         
         function Setup(e){
-        $.getJSON("https://sleepu-api.com/condition?name=" + "DEPT_LIST", function (res) {
+        $.getJSON("https://sleepu-api.com/condition?name=" + e, function (res) {
         prelist = res;
             console.log(prelist);
             head = prelist['head'];
@@ -61,7 +61,6 @@
             });
         });
         
-        Setup("");
     </script>
 </body>
 
