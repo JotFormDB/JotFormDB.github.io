@@ -22,7 +22,6 @@
         function Setup(e){
         $.getJSON("https://sleepu-api.com/condition?name=" + e, function (res) {
         prelist = res;
-            console.log(prelist);
             head = prelist['head'];
             list = prelist['data'];
 
@@ -57,9 +56,10 @@
 
         JFCustomWidget.subscribe("ready", function () {
             Setup(JFCustomWidget.getWidgetSettings().variableID);
-            JFCustomWidget.subscribe("submit", function () {
-            });
+            
         });
+        JFCustomWidget.subscribe("submit", function () {
+            });
         
     </script>
 </body>
