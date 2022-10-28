@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://js.jotform.com/JotFormCustomWidget.min.js"></script>
+</head>
+
+<body>
+    <div id="main">    
+        <h3 id="placeholder">Header</h3>
+        <select name="dropdown" id="dropdown" onchange="change()">
+            <option value="-1">None</option>
+        </select>
+    </div>
+    <script type="text/javascript">
+
+        var list;
+        var touched = {};
+        var head;
+        
+        function Setup(e){
+        $.getJSON("https://sleepu-api.com/condition?name=" + e, function (res) {
+        prelist = res;
+            head = prelist['head'];
+            list = prelist['data'];
+
+            for (var i in list) {
+                var name = list[i][head];
+                $('#dropdown').append('<option value="' + i + '">' + name + '</option>');
+            }
+            $('#placeholder').html(head);
+        });
+        }
+        function change() {
+            var select = document.getElementById('dropdown');
+            var option = select.options[select.selectedIndex];
+            fields = [];
+            for (var touchy in touched) {
+                fields.push({
+                    label: touchy,
+                    value: ""
+                });
+            }
+            JFCustomWidget.setFieldsValueByLabel(fields);
+            fields2 = [];
+            for (var item in list[option.value]) {
+                touched[item] = "";
+                fields2.push({
+                    label: item,
+                    value: list[option.value][item]
+                });
+            }
+            JFCustomWidget.setFieldsValueByLabel(fields2);
+        }
+
+        JFCustomWidget.subscribe("ready", function () {
+            Setup(JFCustomWidget.getWidgetSettings().variableID); 
+        });
+        
+    </script>
+</body>
+
+</html>
