@@ -70,7 +70,8 @@ margin: 0px;
                 var name = list[i][head];
                 $('#dropdown').append('<option value="' + i + '">' + name + '</option>');
                 if(prev_val == name){
-                  $('#dropdown').selectedIndex = i;
+                  $('#dropdown').val(i);
+                  change();
                 }
             }
             $('#placeholder').html(head);
@@ -104,7 +105,6 @@ margin: 0px;
             JFCustomWidget.subscribe("submit", function(){
             var select = document.getElementById('dropdown');
             var option = select.options[select.selectedIndex];
-            console.log(option.innerHTML);
                     var msg = {
                         //you should valid attribute to data for JotForm
                         //to be able to use youw widget as required
