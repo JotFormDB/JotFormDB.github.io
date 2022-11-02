@@ -56,7 +56,8 @@ margin: 0px;
         var touched = {};
         var head;
         
-        function Setup(e){
+        function Setup(e,data){
+        console.log(data);
         $.getJSON("https://sleepu-api.com/condition?name=" + e, function (res) {
         prelist = res;
             head = prelist['head'];
@@ -91,8 +92,8 @@ margin: 0px;
             JFCustomWidget.setFieldsValueByLabel(fields2);
         }
 
-        JFCustomWidget.subscribe("ready", function () {
-            Setup(JFCustomWidget.getWidgetSettings().variableID); 
+        JFCustomWidget.subscribe("ready", function (data) {
+            Setup(JFCustomWidget.getWidgetSettings().variableID,data); 
             
             JFCustomWidget.subscribe("submit", function(){
                     var msg = {
