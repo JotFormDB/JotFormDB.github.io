@@ -57,7 +57,7 @@ margin: 0px;
         var head;
         
         function Setup(e){
-        $.getJSON("https://sleepu-api.com/condition?name=" + "DEPT_LIST", function (res) {
+        $.getJSON("https://sleepu-api.com/condition?name=" + e, function (res) {
         prelist = res;
             head = prelist['head'];
             list = prelist['data'];
@@ -93,9 +93,18 @@ margin: 0px;
 
         JFCustomWidget.subscribe("ready", function () {
             Setup(JFCustomWidget.getWidgetSettings().variableID); 
+            
+            JFCustomWidget.subscribe("submit", function(){
+                    var msg = {
+                        //you should valid attribute to data for JotForm
+                        //to be able to use youw widget as required
+                        valid: true,
+                        value: document.getElementById('dropdown').value
+                    }
+                    // send value to JotForm
+                    JFCustomWidget.sendSubmit(msg);
+                });  
         });
-        
-        Setup();
         
     </script>
 </body>
