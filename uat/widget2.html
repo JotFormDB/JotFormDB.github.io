@@ -55,10 +55,12 @@ margin: 0px;
         var list;
         var touched = {};
         var head;
+        var prev_val = "";
         
         function Setup(e,data){
-        console.log("try",data.value);
-        console.log("try2",data.value());
+        if(data.value){
+        prev_val = data.value;
+        }
         $.getJSON("https://sleepu-api.com/condition?name=" + e, function (res) {
         prelist = res;
             head = prelist['head'];
@@ -67,6 +69,9 @@ margin: 0px;
             for (var i in list) {
                 var name = list[i][head];
                 $('#dropdown').append('<option value="' + i + '">' + name + '</option>');
+                if(prev_val == name){
+                  $('#dropdown').selectedIndex = i;
+                }
             }
             $('#placeholder').html(head);
         });
@@ -97,11 +102,13 @@ margin: 0px;
             Setup(JFCustomWidget.getWidgetSettings().variableID,data); 
             
             JFCustomWidget.subscribe("submit", function(){
+            var select = document.getElementById('dropdown');
+            var option = select.options[select.selectedIndex];
                     var msg = {
                         //you should valid attribute to data for JotForm
                         //to be able to use youw widget as required
                         valid: true,
-                        value: document.getElementById('dropdown').value
+                        value: option.value
                     }
                     // send value to JotForm
                     JFCustomWidget.sendSubmit(msg);
