@@ -57,7 +57,8 @@ margin: 0px;
         var head;
         
         function Setup(e,data){
-        console.log(data);
+        console.log("try",data.value);
+        console.log("try2",data.value());
         $.getJSON("https://sleepu-api.com/condition?name=" + e, function (res) {
         prelist = res;
             head = prelist['head'];
