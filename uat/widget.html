@@ -118,7 +118,7 @@
         }
 
         function Setup(e, data = null) {
-            if (data) {
+            if (data.value) {
                 prev_val = data.value.split("->");
             }
             $.getJSON("https://sleepu-api.com/condition?name=" + e, function (res) {
