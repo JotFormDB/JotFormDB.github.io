@@ -1,77 +1,148 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"
         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="https://js.jotform.com/JotFormCustomWidget.min.js"></script>
 </head>
 <style>
-#placeholder {
-color: #2c3345;
-    font-size: 16px;
-    font-weight: 500;
+    .placeholder {
+        color: #2c3345;
+        font-size: 16px;
+        font-weight: 500;
         width: 100%;
-    margin-left: 2px;
-    margin-bottom: 14px;
-    display:block;
-    font-family: Inter,sans-serif;
-}
+        margin-left: 2px;
+        margin-bottom: 14px;
+        display: block;
+        font-family: Inter, sans-serif;
+    }
 
-#dropdown {
-width: 310px;
-    height: 2.5em;
-color: black;
-    font-weight: 300;
-background-color: #fff;
-    border-color: #b8bdc9;
-font-size: 1em;
-    border-radius: 4px;
-    border-width: 1px;
-    border-style: solid;
-    display: block;
-font-family: Inter,sans-serif;
-padding: 0px 2px 1px;
-}
+    .dropdown {
+        width: 310px;
+        height: 2.5em;
+        color: black;
+        font-weight: 300;
+        background-color: #fff;
+        border-color: #b8bdc9;
+        font-size: 1em;
+        border-radius: 4px;
+        border-width: 1px;
+        border-style: solid;
+        display: block;
+        font-family: Inter, sans-serif;
+        padding: 0px 2px 1px;
+    }
 
-#dropdown .is-active {
-    color: #000;
-}
+    .dropdown .is-active {
+        color: #000;
+    }
 
-body {
-margin: 0px;
-}
-
+    body {
+        margin: 0px;
+    }
 </style>
 
 <body>
-    <div id="main">    
-        <label id="placeholder">Header</label>
-        <select name="dropdown" id="dropdown" onchange="change()">
-            <option value="-1">None</option>
-        </select>
+    <div id="main">
     </div>
     <script type="text/javascript">
 
         var list;
-        var touched = {};
         var head;
-        
-        function Setup(e){
-        $.getJSON("https://sleepu-api.com/condition?name=" + e, function (res) {
-        prelist = res;
-            head = prelist['head'];
-            list = prelist['data'];
+        var dropdownlist = {};
+        var layers = [];
 
-            for (var i in list) {
-                var name = list[i][head];
-                $('#dropdown').append('<option value="' + i + '">' + name + '</option>');
+        function build(id, label) {
+            var c1 = '<div id="dup';
+            var c2 = '"><label class="placeholder">';
+            var c3 = '</label><select class="dropdown" onchange="update(' + id + ')"><option value=" - 1">None</option></select></div><br>';
+            return c1 + id + c2 + label + c3;
+        }
+
+        function setuphead() {
+            var name = "#dup0";
+            var concat = '<option value="-1">None</option>';
+            var target = dropdownlist;
+            for (var a in target) {
+                concat += '<option value="' + a + '">' + a + '</option>';
             }
-            $('#placeholder').html(head);
-        });
+            $(name + " > .dropdown").html(concat);
+        }
+
+        function gettarget(i) {
+            if (i == 0) return dropdownlist[$('#dup' + i + ' > .dropdown').val()]
+            return gettarget(i - 1)[$('#dup' + i + ' > .dropdown').val()];
+        }
+
+        function reset(e) {
+            for (var i = e; i < layers.length; i++) {
+                var name = "#dup" + i;
+                var concat = '<option value=" - 1">None</option>';
+                $(name + " > .dropdown").html(concat);
+            }
+        }
+
+        function update(e = 0) {
+            var i = e + 1;
+            reset(i);
+
+            var name = "#dup" + i;
+            var concat = '<option value=" - 1">None</option>';
+            var target = gettarget(e);
+            for (var a in target) {
+                concat += '<option value="' + a + '">' + a + '</option>';
+            }
+            $(name + " > .dropdown").html(concat);
+
+        }
+
+        function push(head, curr, num) {
+            if (num >= layers.length) return {};
+            var val = curr[layers[num]];
+            if (head[val] == null) head[val] = {};
+            push(head[val], curr, num + 1);
+        }
+
+        function Setup(e) {
+            $.getJSON("https://sleepu-api.com/condition?name=" + e, function (res) {
+
+                for (var i in res.data) {
+                    //get all layers
+                    for (var a in res.data[i]) {
+                        layers.push(a);
+                    }
+                    break;
+                }
+
+                for (var i in res.data) {
+                    var curr = res.data[i];
+                    push(dropdownlist, curr, 0);
+                }
+
+                for (var i in layers) {
+                    $('#main').append(build(i, layers[i]));
+                }
+                //update();
+                setuphead();
+
+                prelist = res;
+                head = prelist['head'];
+                list = prelist['data'];
+
+                for (var i in list) {
+                    var name = list[i][head];
+                    //addin(name);
+                }
+                $('#placeholder').html(head);
+                $('#placeholder').append();
+            });
         }
         function change() {
             var select = document.getElementById('dropdown');
             var option = select.options[select.selectedIndex];
+            //query the option and fil it up
+
             fields = [];
             for (var touchy in touched) {
                 fields.push({
@@ -93,18 +164,20 @@ margin: 0px;
 
         JFCustomWidget.subscribe("ready", function () {
             Setup(JFCustomWidget.getWidgetSettings().variableID);
-            JFCustomWidget.subscribe("submit", function(){
-                    var msg = {
-                        //you should valid attribute to data for JotForm
-                        //to be able to use youw widget as required
-                        valid: true,
-                        value: document.getElementById('dropdown').value
-                    }
-                    // send value to JotForm
-                    JFCustomWidget.sendSubmit(msg);
-                });            
+            JFCustomWidget.subscribe("submit", function () {
+                var msg = {
+                    //you should valid attribute to data for JotForm
+                    //to be able to use youw widget as required
+                    valid: true,
+                    value: document.getElementById('dropdown').value
+                }
+                // send value to JotForm
+                JFCustomWidget.sendSubmit(msg);
+            });
         });
-        
+
+        //Setup("ITSM_SHARD_LIST");
+
     </script>
 </body>
 
