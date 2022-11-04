@@ -52,11 +52,12 @@
         var head;
         var dropdownlist = {};
         var layers = [];
+        var prev_val;
 
         function build(id, label) {
             var c1 = '<div id="dup';
             var c2 = '"><label class="placeholder">';
-            var c3 = '</label><select class="dropdown" onchange="update(' + id + ')"><option value=" - 1">None</option></select></div><br>';
+            var c3 = '</label><select class="dropdown" onchange="update(' + id + ')"><option value="None">None</option></select></div><br>';
             return c1 + id + c2 + label + c3;
         }
 
@@ -78,7 +79,7 @@
         function reset(e) {
             for (var i = e; i < layers.length; i++) {
                 var name = "#dup" + i;
-                var concat = '<option value=" - 1">None</option>';
+                var concat = '<option value="None">None</option>';
                 $(name + " > .dropdown").html(concat);
             }
         }
@@ -88,13 +89,12 @@
             reset(i);
 
             var name = "#dup" + i;
-            var concat = '<option value=" - 1">None</option>';
+            var concat = '<option value="None">None</option>';
             var target = gettarget(e);
             for (var a in target) {
                 concat += '<option value="' + a + '">' + a + '</option>';
             }
             $(name + " > .dropdown").html(concat);
-
         }
 
         function push(head, curr, num) {
@@ -104,7 +104,23 @@
             push(head[val], curr, num + 1);
         }
 
-        function Setup(e) {
+        function recoverPrev() {
+            if (!prev_val) return;
+            for (var n = 0; n < layers.length; n++) {
+                if ($('#dup' + n + ' > .dropdown option[value="' + prev_val[n] + '"]').length > 0) {
+                    $('#dup' + n + ' > .dropdown').val(prev_val[n]);
+                    update(n);
+                }
+                else {
+                    break;
+                }
+            }
+        }
+
+        function Setup(e, data = null) {
+            if (data) {
+                prev_val = data.value.split("->");
+            }
             $.getJSON("https://sleepu-api.com/condition?name=" + e, function (res) {
 
                 for (var i in res.data) {
@@ -123,8 +139,8 @@
                 for (var i in layers) {
                     $('#main').append(build(i, layers[i]));
                 }
-                //update();
                 setuphead();
+                recoverPrev();
 
                 prelist = res;
                 head = prelist['head'];
@@ -132,10 +148,8 @@
 
                 for (var i in list) {
                     var name = list[i][head];
-                    //addin(name);
                 }
                 $('#placeholder').html(head);
-                $('#placeholder').append();
             });
         }
         function change() {
@@ -162,21 +176,25 @@
             JFCustomWidget.setFieldsValueByLabel(fields2);
         }
 
-        JFCustomWidget.subscribe("ready", function () {
-            Setup(JFCustomWidget.getWidgetSettings().variableID);
+        JFCustomWidget.subscribe("ready", function (data) {
+            Setup(JFCustomWidget.getWidgetSettings().variableID, data);
             JFCustomWidget.subscribe("submit", function () {
+                var concat = "";
+                for (var n = 0; n < layers.length; n++) {
+                    concat += ($("#dup" + n + " > .dropdown").val() + ((n + 1 < layers.length) ? '->' : ''));
+                }
                 var msg = {
                     //you should valid attribute to data for JotForm
                     //to be able to use youw widget as required
                     valid: true,
-                    value: document.getElementById('dropdown').value
+                    value: concat
                 }
                 // send value to JotForm
                 JFCustomWidget.sendSubmit(msg);
             });
         });
 
-        //Setup("ITSM_SHARD_LIST");
+        //Setup("ITSM_SHARD_LIST", { value: "VICOM->Application->Health Declaration" });
 
     </script>
 </body>
