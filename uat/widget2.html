@@ -61,7 +61,7 @@ margin: 0px;
         if(data.value){
         prev_val = data.value;
         }
-        $.getJSON("https://sleepu-api.com/condition?name=" + e, function (res) {
+        $.getJSON("https://sleepu-api.com/varlist?name=" + e, function (res) {
         prelist = res;
             head = prelist['head'];
             list = prelist['data'];

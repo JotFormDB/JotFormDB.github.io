@@ -121,7 +121,7 @@
             if (data.value) {
                 prev_val = data.value.split("->");
             }
-            $.getJSON("https://sleepu-api.com/condition?name=" + e, function (res) {
+            $.getJSON("https://sleepu-api.com/varlist?name=" + e, function (res) {
 
                 for (var i in res.data) {
                     //get all layers
