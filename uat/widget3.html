@@ -57,10 +57,10 @@
         var timer;
 
         function changes(e) {
-            $('#input').val(e.value);
+            console.log(e.value);
+            $('#input').val(new String(e.value));
             clearTimeout(timer);
             timer = setTimeout(() => {
-                console.log("running api call");
                 $.getJSON("https://sleepu-api.com/lookup?id=" + e.value, function (res) {
                     console.log(res);
                 })
