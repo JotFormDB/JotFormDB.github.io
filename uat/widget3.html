@@ -57,6 +57,10 @@
         var head;
         var prev_val = "";
 
+        function changes(e) {
+            console.log(e);
+        }
+
         function Setup(e, data) {
             if (data.value) {
                 prev_val = data.value;
@@ -102,6 +106,7 @@
         JFCustomWidget.subscribe("ready", function (data) {
             Setup(JFCustomWidget.getWidgetSettings().variableID, data);
 
+            JFCustomWidget.subscribe("populate", changes);
             JFCustomWidget.subscribe("submit", function () {
                 var select = document.getElementById('dropdown');
                 var option = select.options[select.selectedIndex];
