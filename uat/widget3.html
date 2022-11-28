@@ -57,7 +57,7 @@
         var timer;
 
         function changes(e) {
-            $('#input').html(e.value);
+            $('#input').val(e.value);
             clearTimeout(timer);
             timer = setTimeout(() => {
                 console.log("running api call");
@@ -69,7 +69,7 @@
 
         function Setup(e, data) {
             if (data.value) {
-                $('#input').html(data.value);
+                $('#input').val(data.value);
             }
         }
 
