@@ -71,15 +71,17 @@
 
             }, 5000);
         }
-
         function Setup(e, data) {
+            if (e.hide) {
+                $('#main').css("display", "none");
+            }
             if (data.value) {
                 $('#input').val(data.value);
             }
         }
 
         JFCustomWidget.subscribe("ready", function (data) {
-            Setup(JFCustomWidget.getWidgetSettings().variableID, data);
+            Setup(JFCustomWidget.getWidgetSettings(), data);
 
             JFCustomWidget.subscribe("populate", changes);
             JFCustomWidget.subscribe("submit", function () {
