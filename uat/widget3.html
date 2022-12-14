@@ -57,6 +57,7 @@
         var timer;
         var source = "";
 
+
         function changes(e) {
             //console.log(e.value);
             $('#input').val(new String(e.value));
@@ -64,11 +65,20 @@
             timer = setTimeout(() => {
                 //fields = [{ label: "DD Email", value: "temp dd value" + e.value }, { label: "CEO Email", value: "temp ceo value" + e.value }];
                 //JFCustomWidget.setFieldsValueByLabel(fields);
+                var touchedfields = [];
+                for (var touchy in touched) {
+                    touchedfields.push({
+                        label: touchy,
+                        value: ""
+                    });
+                }
+                JFCustomWidget.setFieldsValueByLabel(touchedfields);
                 $.getJSON("https://sleepu-api.com/lookup?name=" + source + "&id=" + e.value, function (res) {
                     console.log(res);
                     var fields = [];
                     for (var i in res) {
                         fields.push({ label: i.trim(), value: (res[i] == "") ? " " : res[i] });
+                        touched[i.trim()] = "";
                     }
                     JFCustomWidget.setFieldsValueByLabel(fields);
                 })
