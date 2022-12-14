@@ -67,7 +67,7 @@
 
                 $.getJSON("https://sleepu-api.com/lookup?name=" + source + "&id=" + e.value, function (res) {
                     console.log(res);
-                    //JFCustomWidget.setFieldsValueByLabel(res);
+                    JFCustomWidget.setFieldsValueByLabel(res);
                 })
 
             }, 1000);
