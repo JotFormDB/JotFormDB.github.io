@@ -55,26 +55,30 @@
         var head;
         var prev_val = "";
         var timer;
+        var source = "";
 
         function changes(e) {
             //console.log(e.value);
             $('#input').val(new String(e.value));
             clearTimeout(timer);
             timer = setTimeout(() => {
-                fields = [{ label: "DD Email", value: "temp dd value" + e.value }, { label: "CEO Email", value: "temp ceo value" + e.value }];
-                JFCustomWidget.setFieldsValueByLabel(fields);
-                /*
-                $.getJSON("https://sleepu-api.com/lookup?id=" + e.value, function (res) {
+                //fields = [{ label: "DD Email", value: "temp dd value" + e.value }, { label: "CEO Email", value: "temp ceo value" + e.value }];
+                //JFCustomWidget.setFieldsValueByLabel(fields);
+                
+                $.getJSON("https://sleepu-api.com/lookup?name=" + source + "id=" + e.value, function (res) {
                     console.log(res);
-                JFCustomWidget.setFieldsValueByLabel(res);
-                })*/
+                //JFCustomWidget.setFieldsValueByLabel(res);
+                })
 
-            }, 5000);
+            }, 1000);
         }
         function Setup(e, data) {
             console.log(e);
             if (e.hide) {
-                //$('#main').css("display", "none");
+                $('#main').css("display", "none");
+            }
+            if(e.source){
+            source  = e.source;
             }
             if (data.value) {
                 $('#input').val(data.value);
