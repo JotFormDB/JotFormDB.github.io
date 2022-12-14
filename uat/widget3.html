@@ -68,7 +68,7 @@
                     console.log(res);
                     var fields = [];
                     for (var i in res) {
-                        fields.push({ label: i.trim(), value: res[i] });
+                        fields.push({ label: i.trim(), value: (res[i] == "") ? " " : res[i] });
                     }
                     JFCustomWidget.setFieldsValueByLabel(fields);
                 })
