@@ -64,7 +64,7 @@
             var touchedfields = [];
             for (var touchy in touched) {
                 touchedfields.push({
-                    label: touchy,
+                    label: touchy.trim(),
                     value: ""
                 });
             }
@@ -78,7 +78,7 @@
                     var fields = [];
                     for (var i in res) {
                         fields.push({ label: i.trim(), value: (res[i] == "") ? " " : res[i] });
-                        touched[i.trim()] = "";
+                        touched[i] = "1";
                     }
                     JFCustomWidget.setFieldsValueByLabel(fields);
                 })
