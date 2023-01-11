@@ -59,7 +59,8 @@
 
 
         function changes(e) {
-            //console.log(e.value);
+          console.log(source);
+            console.log(e.value);
             if ($('#input').val() == e.value) return;
             $('#input').val(new String(e.value));
             var touchedfields = [];
