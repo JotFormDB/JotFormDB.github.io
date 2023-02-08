@@ -120,40 +120,22 @@
 
             var inHTML = "";
 
-            var logs = [
-                { "name": "Me", "text": "T1 " },
-                { "name": "P", "text": "T2 " },
-                { "name": "Me", "text": "T3 " },
-                { "name": "P", "text": "T4 " },
-            ]
+            var logs = {
+                "arr": [
+                    { "name": "Me", "text": "T1 " },
+                    { "name": "P", "text": "T2 " },
+                    { "name": "Me", "text": "T3 " },
+                    { "name": "P", "text": "T4 " },
+                ]
+            }
 
-            $.each(logs, function (index, value) {
+            $.each(logs.arr, function (index, value) {
                 var newItem = "<tr><td>" + value.name + " : " + value.text + "</td></tr>"
                 inHTML += newItem;
             });
 
             $("table#dyanmictable").html(inHTML);
         }
-
-        var inHTML = "";
-
-        var logs = {
-            "arr": [
-                { "name": "Me", "text": "T1 " },
-                { "name": "P", "text": "T2 " },
-                { "name": "Me", "text": "T3 " },
-                { "name": "P", "text": "T4 " },
-            ]
-        }
-
-        $.each(logs.arr, function (index, value) {
-            var newItem = "<tr><td>" + value.name + " : " + value.text + "</td></tr>"
-            inHTML += newItem;
-        });
-
-        $("table#dyanmictable").html(inHTML);
-
-
 
         JFCustomWidget.subscribe("ready", function (data) {
             Setup(JFCustomWidget.getWidgetSettings(), data);
