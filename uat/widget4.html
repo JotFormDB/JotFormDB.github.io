@@ -110,13 +110,8 @@
             if (data.value) {
                 $('#input').val(JSON.parse(data.value).value);
             }
-
-            console.log('1');
-            console.log(JFCustomWidget.getFieldsValueById([42], (e) => { console.log(e) }));
-            console.log('2');
-            console.log(JFCustomWidget.getFieldsValueByName(["Widget4"], (e) => { console.log(e) }));
-            console.log('3');
-            console.log(JFCustomWidget.getFieldsValueByName([{ name: "Widget4_label" }], (e) => { console.log(e) }));
+            ;
+            JFCustomWidget.getFieldsValueByName(["Widget4_label"], (e) => { console.log(e) });
 
             var inHTML = "";
 
