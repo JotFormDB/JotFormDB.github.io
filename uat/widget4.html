@@ -111,8 +111,8 @@
                 $('#input').val(JSON.parse(data.value).value);
             }
 
-            JFCustomWidget.getFieldsValueById(["input_33", "input_42"], (e) => { console.log(e) });
-            JFCustomWidget.getFieldsValueByName(["costCtr", "typeA42"], (e) => { console.log(e) });
+            JFCustomWidget.getFieldsValueById(["33", "42", 33, 42], (e) => { console.log(e) });
+            JFCustomWidget.getFieldsValueByName(["costCtr"], (e) => { console.log(e) });
 
             var inHTML = "";
 
