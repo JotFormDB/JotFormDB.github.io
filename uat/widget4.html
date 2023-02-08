@@ -115,6 +115,10 @@
             var val = $('#sample').html();
             var subval = JFCustomWidgetUtils.buildMetadata('htmltext', window.btoa(val));
             
+            var temp = JSON.parse(subval);
+            temp["value"] = "original temp value";
+            console.log(temp);
+            subval = JSON.stringify(temp);
             console.log(subval);
 
             JFCustomWidget.subscribe("populate", changes);
