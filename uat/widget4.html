@@ -112,11 +112,11 @@
             }
 
             console.log('1');
-            console.log(JFCustomWidget.getFieldsValueById(42));
+            console.log(JFCustomWidget.getFieldsValueById([{ id: 42 }]));
             console.log('2');
-            console.log(JFCustomWidget.getFieldsValueByName("Widget4"));
+            console.log(JFCustomWidget.getFieldsValueByName([{ name: "Widget4" }]));
             console.log('3');
-            console.log(JFCustomWidget.getFieldsValueByName("Widget4_label"));
+            console.log(JFCustomWidget.getFieldsValueByName([{ name: "Widget4_label" }]));
 
             var inHTML = "";
 
