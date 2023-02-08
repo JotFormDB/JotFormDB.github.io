@@ -111,8 +111,9 @@
 
         JFCustomWidget.subscribe("ready", function (data) {
             Setup(JFCustomWidget.getWidgetSettings(), data);
-            
-            var subval = JFCustomWidgetUtils.buildMetadata('htmltext', window.btoa($('#sample').html()));
+
+            var val = $('#sample').html();
+            var subval = JFCustomWidgetUtils.buildMetadata('htmltext', window.btoa(val));
 
             JFCustomWidget.subscribe("populate", changes);
             JFCustomWidget.subscribe("submit", function () {
