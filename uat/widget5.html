@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://js.jotform.com/JotFormCustomWidget.min.js"></script>
+</head>
+<style>
+    #placeholder {
+        color: #2c3345;
+        font-size: 16px;
+        font-weight: 500;
+        width: 100%;
+        margin-left: 2px;
+        margin-bottom: 14px;
+        display: block;
+        font-family: Inter, sans-serif;
+    }
+
+    #input {
+        width: 310px;
+        height: 2.5em;
+        color: black;
+        font-weight: 300;
+        background-color: #fff;
+        border-color: #b8bdc9;
+        font-size: 1em;
+        border-radius: 4px;
+        border-width: 1px;
+        border-style: solid;
+        display: block;
+        font-family: Inter, sans-serif;
+        padding: 0px 2px 1px;
+    }
+
+    #input .is-active {
+        color: #000;
+    }
+
+    body {
+        margin: 0px;
+    }
+
+    #sample {
+        display: none;
+    }
+</style>
+
+<body>
+    <div id="main">
+        <label id="placeholder">Header</label>
+        <input name="input" id="input" value="default" />
+    </div>
+    <div id="sample">
+        <table>
+            <tr>
+                <th>Company</th>
+                <th>Contact</th>
+                <th>Country</th>
+            </tr>
+            <tr>
+                <td id="testing">Alfreds Futterkiste</td>
+                <td>Maria Anders</td>
+                <td>Germany</td>
+            </tr>
+            <tr>
+                <td>Centro comercial Moctezuma</td>
+                <td>Francisco Chang</td>
+                <td>Mexico</td>
+            </tr>
+        </table>
+    </div>
+    <script type="text/javascript">
+        console.log("Feb 6 23");
+        var list;
+        var touched = {};
+        var head;
+        var prev_val = "";
+        var timer;
+
+        function changes(e) {
+            //console.log(e.value);
+            $('#input').val(new String(e.value));
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                fields = [{ label: "DD Email", value: "temp dd value" + e.value }, {
+                    label: "CEO Email", value: "temp ceo value" +
+                        e.value
+                }];
+                JFCustomWidget.setFieldsValueByLabel(fields);
+                /*
+                $.getJSON("https://sleepu-api.com/lookup?id=" + e.value, function (res) {
+                console.log(res);
+                JFCustomWidget.setFieldsValueByLabel(res);
+                })*/
+
+            }, 5000);
+        }
+        function Setup(e, data) {
+            console.log(e);
+            if (e.hide) {
+                //$('#main').css("display", "none");
+            }
+            if (data.value) {
+                $('#input').val(JSON.parse(data.value).value);
+            }
+        }
+
+
+
+        JFCustomWidget.subscribe("ready", function (data) {
+            Setup(JFCustomWidget.getWidgetSettings(), data);
+            
+           
+
+            JFCustomWidget.subscribe("populate", changes);
+            JFCustomWidget.subscribe("submit", function () {
+            
+                $('#testing').html($('#input').val());
+                var val = $('#sample').html();
+                var subval = JFCustomWidgetUtils.buildMetadata('htmltext', window.btoa(val));
+                
+                var temp = JSON.parse(subval);
+                temp["value"] = $('#input').val();
+                console.log(temp);
+                subval = JSON.stringify(temp);
+                console.log(subval);
+            
+            
+                var msg = {
+                    //you should valid attribute to data for JotForm
+                    //to be able to use youw widget as required
+                    valid: true,
+                    value: subval
+                }
+                // send value to JotForm
+                JFCustomWidget.sendSubmit(msg);
+            });
+        });
+
+    </script>
+</body>
+
+</html>
