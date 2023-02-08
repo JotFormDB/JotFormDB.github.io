@@ -110,8 +110,9 @@
             if (data.value) {
                 $('#input').val(JSON.parse(data.value).value);
             }
-            ;
-            JFCustomWidget.getFieldsValueByName(["typeA42", "Widget4_label", "Widget4"], (e) => { console.log(e) });
+
+            JFCustomWidget.getFieldsValueById(["input_33", "input_42"], (e) => { console.log(e) });
+            JFCustomWidget.getFieldsValueByName(["costCtr", "typeA42"], (e) => { console.log(e) });
 
             var inHTML = "";
 
