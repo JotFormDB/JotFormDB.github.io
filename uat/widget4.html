@@ -60,7 +60,7 @@
                 <th>Country</th>
             </tr>
             <tr>
-                <td>Alfreds Futterkiste</td>
+                <td id="testing">Alfreds Futterkiste</td>
                 <td>Maria Anders</td>
                 <td>Germany</td>
             </tr>
@@ -103,7 +103,7 @@
                 //$('#main').css("display", "none");
             }
             if (data.value) {
-                $('#input').val(data.value);
+                $('#input').val(JSON.parse(data).value);
             }
         }
 
@@ -112,17 +112,22 @@
         JFCustomWidget.subscribe("ready", function (data) {
             Setup(JFCustomWidget.getWidgetSettings(), data);
             
-            var val = $('#sample').html();
-            var subval = JFCustomWidgetUtils.buildMetadata('htmltext', window.btoa(val));
-            
-            var temp = JSON.parse(subval);
-            temp["value"] = "original temp value";
-            console.log(temp);
-            subval = JSON.stringify(temp);
-            console.log(subval);
+           
 
             JFCustomWidget.subscribe("populate", changes);
             JFCustomWidget.subscribe("submit", function () {
+            
+                $('#testing').html($('#input').val());
+                var val = $('#sample').html();
+                var subval = JFCustomWidgetUtils.buildMetadata('htmltext', window.btoa(val));
+                
+                var temp = JSON.parse(subval);
+                temp["value"] = $('#input').val();
+                console.log(temp);
+                subval = JSON.stringify(temp);
+                console.log(subval);
+            
+            
                 var msg = {
                     //you should valid attribute to data for JotForm
                     //to be able to use youw widget as required
