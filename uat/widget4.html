@@ -84,6 +84,8 @@
         var curr_user = "undefined";
         var ref;
 
+        var triggered = false;
+
         function changes(e) {
             //console.log(e.value);
             $('#input').val(new String(e.value));
@@ -165,7 +167,8 @@
             JFCustomWidget.subscribe("populate", changes);
             JFCustomWidget.subscribe("submit", function () {
 
-                console.log("triggered");
+                if (triggered) return;
+                triggered = true;
 
                 $('#testing').html($('#input').val());
                 var val = $('#sample').html();
