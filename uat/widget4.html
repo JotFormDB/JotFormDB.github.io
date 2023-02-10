@@ -114,8 +114,8 @@
 
         var template_json = {
             value: [{
-                name: "name",
-                text: "text"
+                name: "System",
+                text: "Welcome"
             }]
         }
 
@@ -140,7 +140,6 @@
                     console.log(e.data[0].value);
                     //try to parse the json to make sure its a valid one
                     var log = JSON.parse(e.data[0].value.substring(1));
-                    console.log(log);
 
                     //build the html to display on the widget
                     var inHTML = "";
@@ -190,7 +189,7 @@
 
                 touchedfields.push({
                     label: "chatlog",
-                    value: JSON.stringify({ value: ref })
+                    value: '@' + JSON.stringify({ value: ref })
                 });
                 //console.log(touchedfields);
                 JFCustomWidget.setFieldsValueByLabel(touchedfields);
