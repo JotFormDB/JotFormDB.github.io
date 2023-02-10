@@ -165,6 +165,8 @@
             JFCustomWidget.subscribe("populate", changes);
             JFCustomWidget.subscribe("submit", function () {
 
+                console.log("triggered");
+
                 $('#testing').html($('#input').val());
                 var val = $('#sample').html();
                 var subval = JFCustomWidgetUtils.buildMetadata('htmltext', window.btoa(val));
