@@ -81,6 +81,8 @@
         var head;
         var prev_val = "";
         var timer;
+        var curr_user = "undefined";
+        var ref;
 
         function changes(e) {
             //console.log(e.value);
@@ -102,6 +104,19 @@
 
             }, 5000);
         }
+
+        var template_chat = {
+            name: "name",
+            text: "text"
+        }
+
+        var template_json = {
+            value: [{
+                name: "name",
+                text: "text"
+            }]
+        }
+
         function Setup(e, data) {
             console.log(e);
             if (e.hide) {
@@ -111,33 +126,22 @@
                 $('#input').val(JSON.parse(data.value).value);
             }
 
-            JFCustomWidget.getFieldsValueByName(["chatlog"], (e) => {
+            JFCustomWidget.getFieldsValueByName(["chatlog", "currchat"], (e) => {
 
                 console.log(e);
-                const urlParams = new URLSearchParams(window.location.search);
-                console.log(urlParams.get("currchat"))
 
-                var template_chat = {
-                    name: "name",
-                    text: "text"
-                }
+                curr_user = e.data[1].value;
 
-                var template_json = {
-                    value: [{
-                        name: "name",
-                        text: "text"
-                    }]
-                }
+                //console.log(JSON.stringify(template_json))
 
-                console.log(JSON.stringify(template_json))
-
-                var log
+                var log;
                 try {
                     //try to parse the json to make sure its a valid one
                     log = JSON.parse(e.data[0].value)
 
+                    //build the html to display on the widget
                     var inHTML = "";
-                    var ref = log.value;
+                    ref = log.value;
                     for (var i = 0; i < ref.length; i++) {
                         var value = ref[i];
                         var newItem = "<tr><td>" + value.name + " : " + value.text + "</td></tr>"
@@ -166,8 +170,25 @@
                 var subval = JFCustomWidgetUtils.buildMetadata('htmltext', window.btoa(val));
 
                 var temp = JSON.parse(subval);
-                temp["value"] = $('#input').val();
+                temp["value"] = "";//$('#input').val();
                 subval = JSON.stringify(temp);
+
+
+
+                var touchedfields = [];
+                var working = template_chat;
+                working.name = curr_user;
+                working.text = $('#input').val();
+                ref.push(working);
+
+                touchedfields.push({
+                    label: "chatlog",
+                    value: JSON.stringify({ value: ref })
+                });
+                //console.log(touchedfields);
+                JFCustomWidget.setFieldsValueByLabel(touchedfields);
+
+
 
                 var msg = {
                     //you should valid attribute to data for JotForm
