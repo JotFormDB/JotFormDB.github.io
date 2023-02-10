@@ -134,13 +134,12 @@
 
                 curr_user = e.data[1].value;
 
-                //console.log(JSON.stringify(template_json))
+                console.log(JSON.stringify(template_json))
 
-                var log;
                 try {
                     console.log(e.data[0].value);
                     //try to parse the json to make sure its a valid one
-                    log = JSON.parse(e.data[0].value)
+                    var log = JSON.parse(e.data[0].value)
                     console.log(log);
 
                     //build the html to display on the widget
