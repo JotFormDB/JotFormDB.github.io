@@ -112,7 +112,10 @@
             }
 
             JFCustomWidget.getFieldsValueByName(["chatlog"], (e) => {
+
                 console.log(e);
+                const urlParams = new URLSearchParams(window.location.search);
+                console.log(urlParams.get("currchat"))
 
                 var template_chat = {
                     name: "name",
