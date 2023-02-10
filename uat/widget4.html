@@ -140,10 +140,12 @@
                 try {
                     //try to parse the json to make sure its a valid one
                     log = JSON.parse(e.data[0].value)
+                    console.log(log);
 
                     //build the html to display on the widget
                     var inHTML = "";
                     ref = log.value;
+                    console.log(ref);
                     for (var i = 0; i < ref.length; i++) {
                         var value = ref[i];
                         var newItem = "<tr><td>" + value.name + " : " + value.text + "</td></tr>"
