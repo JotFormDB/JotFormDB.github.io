@@ -138,6 +138,7 @@
 
                 var log;
                 try {
+                    console.log(e.data[0].value);
                     //try to parse the json to make sure its a valid one
                     log = JSON.parse(e.data[0].value)
                     console.log(log);
