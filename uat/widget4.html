@@ -48,7 +48,7 @@
 </style>
 
 <body>
-    <table id="dyanmictable">
+    <table id="dynanmictable">
     </table>
     <div id="main">
         <input name="input" id="input" value="default" />
@@ -111,31 +111,47 @@
                 $('#input').val(JSON.parse(data.value).value);
             }
 
-            JFCustomWidget.getFieldsValueByName(["costCtr"], (e) => { console.log(e) });
+            JFCustomWidget.getFieldsValueByName(["chatlog"], (e) => {
+                console.log(e);
 
-            var inHTML = "";
+                var template_chat = {
+                    name: "name",
+                    text: "text"
+                }
 
-            var logs = {
-                "arr": [
-                    { "name": "Me", "text": "T1 " },
-                    { "name": "P", "text": "T2 " },
-                    { "name": "Me", "text": "T3 " },
-                    { "name": "P", "text": "T4 " },
-                ]
-            }
+                var template_json = {
+                    value: [{
+                        name: "name",
+                        text: "text"
+                    }]
+                }
 
-            $.each(logs.arr, function (index, value) {
-                var newItem = "<tr><td>" + value.name + " : " + value.text + "</td></tr>"
-                inHTML += newItem;
+                var log
+                try {
+                    //try to parse the json to make sure its a valid one
+                    log = JSON.parse(e)
+
+                    var inHTML = "";
+                    var ref = log.value;
+                    for (var i = 0; i < ref.length; i++) {
+                        var value = ref[i];
+                        var newItem = "<tr><td>" + value.name + " : " + value.text + "</td></tr>"
+                        inHTML += newItem;
+                    }
+
+                    //update the widget to show the text
+                    $("table#dynanmictable").html(inHTML);
+                }
+                catch (err) {
+                    console.log(err);
+                }
+
+
             });
-
-            $("table#dyanmictable").html(inHTML);
         }
 
         JFCustomWidget.subscribe("ready", function (data) {
             Setup(JFCustomWidget.getWidgetSettings(), data);
-
-
 
             JFCustomWidget.subscribe("populate", changes);
             JFCustomWidget.subscribe("submit", function () {
@@ -146,15 +162,7 @@
 
                 var temp = JSON.parse(subval);
                 temp["value"] = $('#input').val();
-                console.log(temp);
                 subval = JSON.stringify(temp);
-                console.log(subval);
-
-
-
-
-
-
 
                 var msg = {
                     //you should valid attribute to data for JotForm
