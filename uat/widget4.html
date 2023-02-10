@@ -51,7 +51,7 @@
     <table id="dynanmictable">
     </table>
     <div id="main">
-        <input name="input" id="input" value="default" />
+        <input name="input" id="input" value="" />
     </div>
 
 
@@ -119,9 +119,9 @@
             }]
         }
 
-        function Setup(e, data) {
-            console.log(e);
-            if (e.hide) {
+        function Setup(e1, data) {
+            console.log(e1);
+            if (e1.hide) {
                 //$('#main').css("display", "none");
             }
             if (data.value) {
@@ -134,12 +134,12 @@
 
                 curr_user = e.data[1].value;
 
-                console.log(JSON.stringify(template_json))
+                console.log(JSON.stringify(template_json));
 
                 try {
                     console.log(e.data[0].value);
                     //try to parse the json to make sure its a valid one
-                    var log = JSON.parse(e.data[0].value)
+                    var log = JSON.parse(e.data[0].value);
                     console.log(log);
 
                     //build the html to display on the widget
