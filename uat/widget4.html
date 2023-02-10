@@ -131,7 +131,7 @@
                 var log
                 try {
                     //try to parse the json to make sure its a valid one
-                    log = JSON.parse(e)
+                    log = JSON.parse(e.data[0].value)
 
                     var inHTML = "";
                     var ref = log.value;
