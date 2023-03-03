@@ -143,11 +143,10 @@
 
                     //build the html to display on the widget
                     var inHTML = "";
-                    ref = log.value;
-                    console.log("ref val");
-                    console.log(ref);
-                    for (var i = 0; i < ref.length; i++) {
-                        var value = ref[i];
+                    ref = log;
+                    chat = ref.value;
+                    for (var i = 0; i < chat.length; i++) {
+                        var value = chat[i];
                         var newItem = "<tr><td>" + value.name + " : " + value.text + "</td></tr>"
                         inHTML += newItem;
                     }
@@ -187,7 +186,7 @@
 
                 //if there is an existing log already
                 if (ref) {
-                    ref.push(working);
+                    ref.value.push(working);
 
                 }
                 else {
@@ -196,7 +195,7 @@
 
                 touchedfields.push({
                     label: "chatlog",
-                    value: '@' + JSON.stringify({ ref })
+                    value: '@' + JSON.stringify(ref)
                 });
                 //console.log(touchedfields);
                 JFCustomWidget.setFieldsValueByLabel(touchedfields);
