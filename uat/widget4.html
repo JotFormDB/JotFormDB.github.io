@@ -75,14 +75,14 @@
         </table>
     </div>
     <script type="text/javascript">
-        console.log("Feb 6 23");
+        console.log("Mar 3 23");
         var list;
         var touched = {};
         var head;
         var prev_val = "";
         var timer;
         var curr_user = "undefined";
-        var ref = [];
+        var ref = {};
 
         var triggered = false;
 
@@ -195,7 +195,7 @@
 
                 touchedfields.push({
                     label: "chatlog",
-                    value: '@' + JSON.stringify(ref)
+                    value: '@' + JSON.stringify({ ref })
                 });
                 //console.log(touchedfields);
                 JFCustomWidget.setFieldsValueByLabel(touchedfields);
