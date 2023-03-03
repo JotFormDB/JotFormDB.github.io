@@ -84,6 +84,8 @@
         var curr_user = "undefined";
         var ref = {};
 
+        var lastpush = {};
+
         function changes(e) {
             //console.log(e.value);
             $('#input').val(new String(e.value));
@@ -184,7 +186,12 @@
 
                 //if there is an existing log already
                 if (tempref) {
-                    if (working.name.length > 1 && working.text.length > 1) tempref.value.push(working);
+                    if (working.name.length > 1 && working.text.length > 1) {
+                        if (lastpush && lastpush.name != working.name && lastpush.text != working.text) {
+                            lastpush = working;
+                            tempref.value.push(working);
+                        }
+                    }
                 }
                 else {
                     tempref = template_json;
