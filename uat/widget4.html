@@ -150,15 +150,12 @@
                         var newItem = "<tr><td>" + value.name + " : " + value.text + "</td></tr>"
                         inHTML += newItem;
                     }
-
                     //update the widget to show the text
                     $("table#dynanmictable").html(inHTML);
                 }
                 catch (err) {
                     console.log(err);
                 }
-
-
             });
         }
 
@@ -179,13 +176,18 @@
                 temp["value"] = "";//$('#input').val();
                 subval = JSON.stringify(temp);
 
-
-
                 var touchedfields = [];
                 var working = template_chat;
                 working.name = curr_user;
                 working.text = $('#input').val();
-                ref.push(working);
+
+                //if there is an existing log already
+                if (ref) {
+
+                }
+                else {
+                    ref = template_json;
+                }
 
                 touchedfields.push({
                     label: "chatlog",
@@ -193,8 +195,6 @@
                 });
                 //console.log(touchedfields);
                 JFCustomWidget.setFieldsValueByLabel(touchedfields);
-
-
 
                 var msg = {
                     //you should valid attribute to data for JotForm
