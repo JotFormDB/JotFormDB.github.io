@@ -178,12 +178,13 @@
                 working.name = curr_user;
                 working.text = $('#input').val();
 
+
+
                 var tempref = ref;
 
                 //if there is an existing log already
                 if (tempref) {
-                    tempref.value.push(working);
-
+                    if (working.name.length > 1 && working.text.length > 1) tempref.value.push(working);
                 }
                 else {
                     tempref = template_json;
