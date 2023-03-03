@@ -82,7 +82,7 @@
         var prev_val = "";
         var timer;
         var curr_user = "undefined";
-        var ref;
+        var ref = [];
 
         var triggered = false;
 
@@ -144,6 +144,7 @@
                     //build the html to display on the widget
                     var inHTML = "";
                     ref = log.value;
+                    console.log("ref val");
                     console.log(ref);
                     for (var i = 0; i < ref.length; i++) {
                         var value = ref[i];
@@ -151,7 +152,7 @@
                         inHTML += newItem;
                     }
                     //update the widget to show the text
-                    $("table#dynanmictable").html(inHTML);
+                    $("#dynanmictable").html(inHTML);
                     console.log("run")
                 }
                 catch (err) {
@@ -195,7 +196,7 @@
 
                 touchedfields.push({
                     label: "chatlog",
-                    value: '@' + JSON.stringify({ value: ref })
+                    value: '@' + JSON.stringify({ ref })
                 });
                 //console.log(touchedfields);
                 JFCustomWidget.setFieldsValueByLabel(touchedfields);
