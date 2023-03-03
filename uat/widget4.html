@@ -75,7 +75,7 @@
         </table>
     </div>
     <script type="text/javascript">
-        console.log("Mar 3-2 23");
+        console.log("Mar 3-3 23");
         var list;
         var touched = {};
         var head;
@@ -83,8 +83,6 @@
         var timer;
         var curr_user = "undefined";
         var ref = {};
-
-        var triggered = false;
 
         function changes(e) {
             //console.log(e.value);
@@ -166,10 +164,6 @@
 
             JFCustomWidget.subscribe("populate", changes);
             JFCustomWidget.subscribe("submit", function () {
-                console.log("submit btn");
-                if (triggered) return;
-                triggered = true;
-                console.log("trigger")
 
                 $('#testing').html($('#input').val());
                 var val = $('#sample').html();
@@ -184,18 +178,20 @@
                 working.name = curr_user;
                 working.text = $('#input').val();
 
+                var tempref = ref;
+
                 //if there is an existing log already
-                if (ref) {
-                    ref.value.push(working);
+                if (tempref) {
+                    tempref.value.push(working);
 
                 }
                 else {
-                    ref = template_json;
+                    tempref = template_json;
                 }
 
                 touchedfields.push({
                     label: "chatlog",
-                    value: '@' + JSON.stringify(ref)
+                    value: '@' + JSON.stringify(tempref)
                 });
                 //console.log(touchedfields);
                 JFCustomWidget.setFieldsValueByLabel(touchedfields);
@@ -208,7 +204,6 @@
                 }
                 // send value to JotForm
                 JFCustomWidget.sendSubmit(msg);
-                console.log("sent");
             });
         });
 
