@@ -152,10 +152,12 @@
                     }
                     //update the widget to show the text
                     $("table#dynanmictable").html(inHTML);
+                    console.log("run")
                 }
                 catch (err) {
                     console.log(err);
                 }
+                console.log("end setup");
             });
         }
 
@@ -164,9 +166,10 @@
 
             JFCustomWidget.subscribe("populate", changes);
             JFCustomWidget.subscribe("submit", function () {
-
+                console.log("submit btn");
                 if (triggered) return;
                 triggered = true;
+                console.log("trigger")
 
                 $('#testing').html($('#input').val());
                 var val = $('#sample').html();
@@ -183,6 +186,7 @@
 
                 //if there is an existing log already
                 if (ref) {
+                    ref.push(working);
 
                 }
                 else {
@@ -204,6 +208,7 @@
                 }
                 // send value to JotForm
                 JFCustomWidget.sendSubmit(msg);
+                console.log("sent");
             });
         });
 
