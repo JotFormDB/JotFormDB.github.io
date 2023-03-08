@@ -104,8 +104,10 @@ margin: 0px;
             Setup(JFCustomWidget.getWidgetSettings().variableID,data); 
             
             JFCustomWidget.subscribe("submit", function(){
+            
             var select = document.getElementById('dropdown');
             var option = select.options[select.selectedIndex];
+            console.log(option.innerHTML);
                     var msg = {
                         //you should valid attribute to data for JotForm
                         //to be able to use youw widget as required
