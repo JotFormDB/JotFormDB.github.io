@@ -107,11 +107,14 @@
 
                 var select = document.getElementById('dropdown');
                 var option = select.options[select.selectedIndex];
-                console.log(option.innerHTML);
+                var validity = false;
+                if (option.innerHTML != "None") {
+                    validity = true;
+                }
                 var msg = {
                     //you should valid attribute to data for JotForm
                     //to be able to use youw widget as required
-                    valid: option.innerHTML == "None" ? false : true,
+                    valid: validity,//option.innerHTML == "None" ? false : true,
                     value: option.innerHTML
                 }
                 // send value to JotForm
