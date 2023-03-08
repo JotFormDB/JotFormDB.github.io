@@ -57,6 +57,7 @@
         var touched = {};
         var head;
         var prev_val = "";
+        var validity = false;
 
         function Setup(e, data) {
             if (data.value) {
@@ -98,6 +99,12 @@
                 });
             }
             JFCustomWidget.setFieldsValueByLabel(fields2);
+            if (option.innerHTML != "None") {
+                validity = true;
+            }
+            else {
+                validity = false;
+            }
         }
 
         JFCustomWidget.subscribe("ready", function (data) {
@@ -107,10 +114,6 @@
 
                 var select = document.getElementById('dropdown');
                 var option = select.options[select.selectedIndex];
-                var validity = false;
-                if (option.innerHTML != "None") {
-                    validity = true;
-                }
                 var msg = {
                     //you should valid attribute to data for JotForm
                     //to be able to use youw widget as required
