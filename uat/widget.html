@@ -95,6 +95,17 @@
                 concat += '<option value="' + a + '">' + a + '</option>';
             }
             $(name + " > .dropdown").html(concat);
+
+
+            var concat = "";
+            for (var n = 0; n < layers.length; n++) {
+                concat += ($("#dup" + n + " > .dropdown").val() + ((n + 1 < layers.length) ? '->' : ''));
+            }
+            var msg = {
+                value: concat
+            }
+            // send value to JotForm
+            JFCustomWidget.sendData(msg);
         }
 
         function push(head, curr, num) {
@@ -174,16 +185,6 @@
                 });
             }
             JFCustomWidget.setFieldsValueByLabel(fields2);
-
-            var concat = "";
-            for (var n = 0; n < layers.length; n++) {
-                concat += ($("#dup" + n + " > .dropdown").val() + ((n + 1 < layers.length) ? '->' : ''));
-            }
-            var msg = {
-                value: concat
-            }
-            // send value to JotForm
-            JFCustomWidget.sendData(msg);
         }
 
         JFCustomWidget.subscribe("ready", function (data) {
