@@ -53,6 +53,7 @@
         var dropdownlist = {};
         var layers = [];
         var prev_val;
+        var validity = false;
 
         function build(id, label) {
             var c1 = '<div id="dup';
@@ -101,7 +102,16 @@
             for (var n = 0; n < layers.length; n++) {
                 concat += ($("#dup" + n + " > .dropdown").val() + ((n + 1 < layers.length) ? '->' : ''));
             }
+
+            if (concat.includes("None")) {
+                validity = false;
+            }
+            else {
+                validity = true;
+            }
+
             var msg = {
+                valid: validity,
                 value: concat
             }
             // send value to JotForm
@@ -197,7 +207,7 @@
                 var msg = {
                     //you should valid attribute to data for JotForm
                     //to be able to use youw widget as required
-                    valid: true,
+                    valid: validity,
                     value: concat
                 }
                 // send value to JotForm
