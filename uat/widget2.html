@@ -58,6 +58,8 @@
         var head;
         var prev_val = "";
 
+        var validity = false;
+
         function Setup(e, data) {
             if (data.value) {
                 prev_val = data.value;
@@ -98,6 +100,20 @@
                 });
             }
             JFCustomWidget.setFieldsValueByLabel(fields2);
+            if (option.innerHTML != "None") {
+                validity = true;
+            }
+            else {
+                validity = false;
+            }
+            var msg = {
+                //you should valid attribute to data for JotForm
+                //to be able to use youw widget as required
+                valid: validity,//option.innerHTML == "None" ? false : true,
+                value: option.innerHTML
+            }
+            // send value to JotForm
+            JFCustomWidget.sendData(msg);
         }
 
         JFCustomWidget.subscribe("ready", function (data) {
@@ -109,7 +125,7 @@
                 var msg = {
                     //you should valid attribute to data for JotForm
                     //to be able to use youw widget as required
-                    valid: true,
+                    valid: validity,
                     value: option.innerHTML
                 }
                 // send value to JotForm
