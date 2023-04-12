@@ -181,8 +181,6 @@
                 working.name = curr_user;
                 working.text = $('#input').val();
 
-
-
                 var tempref = ref;
 
                 //if there is an existing log already
@@ -191,6 +189,10 @@
                         if (lastpush && lastpush.name != working.name && lastpush.text != working.text) {
                             lastpush = working;
                             tempref.value.push(working);
+                            touchedfields.push({
+                                label: "notify_chat",
+                                value: 'true'
+                            });
                         }
                     }
                 }
@@ -202,6 +204,7 @@
                     label: "chatlog",
                     value: '@' + JSON.stringify(tempref)
                 });
+
                 //console.log(touchedfields);
                 JFCustomWidget.setFieldsValueByLabel(touchedfields);
 
