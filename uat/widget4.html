@@ -180,7 +180,7 @@
                 var working = template_chat;
                 working.name = curr_user;
                 working.text = $('#input').val();
-
+                var notify = "false";
                 var tempref = ref;
 
                 //if there is an existing log already
@@ -188,11 +188,8 @@
                     if (working.name.length > 1 && working.text.length > 1) {
                         if (lastpush && lastpush.name != working.name && lastpush.text != working.text) {
                             lastpush = working;
-                            tempref.value.push(working);
-                            touchedfields.push({
-                                label: "notify_chat",
-                                value: 'true'
-                            });
+                            tempref.value.push(working); \
+                            notify = "true";
                         }
                     }
                 }
@@ -203,6 +200,11 @@
                 touchedfields.push({
                     label: "chatlog",
                     value: '@' + JSON.stringify(tempref)
+                });
+
+                touchedfields.push({
+                    label: "notify_chat",
+                    value: notify
                 });
 
                 //console.log(touchedfields);
