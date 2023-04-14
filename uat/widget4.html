@@ -49,8 +49,10 @@
 
 <body>
     <p>Chat</p>
-    <table id="dynanmictable">
-    </table>
+    <div id="history">
+        <table id="dynanmictable">
+        </table>
+    </div>
     <div id="main">
         <input name="input" id="input" value="" />
     </div>
@@ -169,7 +171,7 @@
             JFCustomWidget.subscribe("submit", function () {
 
                 $('#testing').html($('#input').val());
-                var val = $('#dynanmictable').html();
+                var val = $('#history').html();
                 var subval = JFCustomWidgetUtils.buildMetadata('htmltext', window.btoa(val));
 
                 var temp = JSON.parse(subval);
