@@ -170,7 +170,12 @@
             JFCustomWidget.subscribe("populate", changes);
             JFCustomWidget.subscribe("submit", function () {
             
+            if(tempref){
                 $("#dynanmictable").append("<tr><td>" + curr_user + " : " + $('#input').val() + "</td></tr>");
+                }
+                else{
+                $("#dynanmictable").append("<tr><td>" + "System" + " : " + "Welcome" + "</td></tr>");
+                }
                 $('#testing').html($('#input').val());
                 var val = $('#history').html();
                 var subval = JFCustomWidgetUtils.buildMetadata('htmltext', window.btoa(val));
