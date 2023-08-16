@@ -56,6 +56,8 @@
         var prev_val = "";
         var timer;
         var source = "";
+        
+        var prefix = "";
 
 
         function changes(e) {
@@ -66,7 +68,7 @@
             var touchedfields = [];
             for (var touchy in touched) {
                 touchedfields.push({
-                    label: touchy.trim(),
+                    label: prefix + touchy.trim(),
                     value: " "
                 });
             }
@@ -80,7 +82,7 @@
                     //console.log(res);
                     var fields = [];
                     for (var i in res) {
-                        fields.push({ label: i.trim(), value: (res[i] == "") ? " " : res[i] });
+                        fields.push({ label: prefix + i.trim(), value: (res[i] == "") ? " " : res[i] });
                         touched[i] = "1";
                     }
                     JFCustomWidget.setFieldsValueByLabel(fields);
@@ -98,6 +100,9 @@
             }
             if (data.value) {
                 $('#input').val(data.value);
+            }
+            if(e.parameter){
+            prefix = e.parameter;
             }
         }
 
