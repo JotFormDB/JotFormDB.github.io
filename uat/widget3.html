@@ -110,14 +110,7 @@
                 prefix = e.parameter;
             }
 
-            try {
-                console.log("Parent URL 3:", parent.document.URL || document.URL);
-            } catch (e) {
-                console.log("Parent URL 4:", window.location.ancestorOrigins[0]);
-            }
-
-            console.log(JFCustomWidget.getParentOrigin());
-
+            console.log(JFCustomWidget.getFieldsValueByName("Get Form Page URL"));
         }
 
         JFCustomWidget.subscribe("ready", function (data) {
