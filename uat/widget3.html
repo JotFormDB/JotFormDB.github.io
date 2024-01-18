@@ -90,6 +90,11 @@
 
             }, 1000);
         }
+
+        function message(evt) {
+            console.log("callback", evt);
+        }
+
         function Setup(e, data) {
             console.log(e);
             if (e.hide) {
@@ -110,6 +115,8 @@
             } catch (e) {
                 console.log("Parent URL 4:", window.location.ancestorOrigins[0]);
             }
+
+            winwdow, addEventListener('message', message, !1);
 
         }
 
