@@ -111,6 +111,7 @@
                 console.log("Parent URL 3:", parent.document.URL || document.URL);
             } catch (e) {
                 console.log("Iframe embed detected - cant access parent");
+                console.log("Parent URL 4:", document.referrer);
             }
 
         }
