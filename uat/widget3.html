@@ -110,9 +110,12 @@
                 prefix = e.parameter;
             }
 
-            JFCustomWidget.getFieldsValueByName(["Get Form Page URL"], function (res) {
-                console.log(res);
-            });
+            setTimeout(() => {
+                JFCustomWidget.getFieldsValueByName(["Get Form Page URL"], function (res) {
+                    console.log(res);
+                });
+            }, 5e3);
+
         }
 
         JFCustomWidget.subscribe("ready", function (data) {
