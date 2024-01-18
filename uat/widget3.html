@@ -106,12 +106,9 @@
             }
 
             try {
-                console.log("Parent URL 1:", parent.document.URL);
-                console.log("Parent URL 2:", document.URL);
                 console.log("Parent URL 3:", parent.document.URL || document.URL);
             } catch (e) {
-                console.log("Iframe embed detected - cant access parent");
-                console.log("Parent URL 4:", document.referrer);
+                console.log("Parent URL 4:", window.location.ancestorOrigins[0]);
             }
 
         }
