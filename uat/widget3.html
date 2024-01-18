@@ -111,7 +111,10 @@
             }
 
             setTimeout(() => {
-                JFCustomWidget.getFieldsValueByName(["Get Page URL"], function (res) {
+                JFCustomWidget.getFieldsValueByName(["Get Page URL", "typeA"], function (res) {
+                    console.log(res);
+                });
+                JFCustomWidget.getFieldsValueById([13], function (res) {
                     console.log(res);
                 });
             }, 5e3);
