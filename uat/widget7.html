@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://js.jotform.com/JotFormCustomWidget.min.js"></script>
+</head>
+<style>
+    #placeholder {
+        color: #2c3345;
+        font-size: 16px;
+        font-weight: 500;
+        width: 100%;
+        margin-left: 2px;
+        margin-bottom: 14px;
+        display: block;
+        font-family: Inter, sans-serif;
+    }
+
+    #dropdown {
+        width: 310px;
+        height: 2.5em;
+        color: black;
+        font-weight: 300;
+        background-color: #fff;
+        border-color: #b8bdc9;
+        font-size: 1em;
+        border-radius: 4px;
+        border-width: 1px;
+        border-style: solid;
+        display: block;
+        font-family: Inter, sans-serif;
+        padding: 0px 2px 1px;
+        margin-top: 30px;
+    }
+
+    #dropdown .is-active {
+        color: #000;
+    }
+
+    body {
+        margin: 0px;
+    }
+</style>
+
+<body>
+    <div id="main">
+        <label id="placeholder">Header</label>
+        <select name="dropdown" id="dropdown" onchange="change()">
+            <option value="-1">None</option>
+        </select>
+    </div>
+    <script type="text/javascript">
+
+        var list;
+        var touched = {};
+        var head;
+        var prev_val = "";
+        var validity = false;
+
+        function Setup(e, data) {
+            if (data.value) {
+                prev_val = data.value;
+            }
+            $.getJSON("https://sleepu-api.com/condition?name=" + e, function (res) {
+                prelist = res;
+                head = prelist['head'];
+                list = prelist['data'];
+
+                for (var i in list) {
+                    var name = list[i][head];
+                    $('#dropdown').append('<option value="' + i + '">' + name + '</option>');
+                    if (prev_val == name) {
+                        $('#dropdown').val(i);
+                        change();
+                    }
+                }
+                $('#placeholder').html(head);
+            });
+        }
+        function change() {
+            var select = document.getElementById('dropdown');
+            var option = select.options[select.selectedIndex];
+            fields = [];
+            for (var touchy in touched) {
+                fields.push({
+                    label: touchy,
+                    value: ""
+                });
+            }
+            JFCustomWidget.setFieldsValueByLabel(fields);
+            fields2 = [];
+            for (var item in list[option.value]) {
+                touched[item] = "";
+                fields2.push({
+                    label: item,
+                    value: list[option.value][item]
+                });
+            }
+            JFCustomWidget.setFieldsValueByLabel(fields2);
+            if (option.innerHTML != "None") {
+                validity = true;
+            }
+            else {
+                validity = false;
+            }
+            var msg = {
+                //you should valid attribute to data for JotForm
+                //to be able to use youw widget as required
+                valid: validity,//option.innerHTML == "None" ? false : true,
+                value: option.innerHTML
+            }
+            // send value to JotForm
+            JFCustomWidget.sendData(msg);
+        }
+
+        JFCustomWidget.subscribe("ready", function (data) {
+            Setup(JFCustomWidget.getWidgetSettings().variableID, data);
+
+            JFCustomWidget.subscribe("submit", function () {
+
+                var select = document.getElementById('dropdown');
+                var option = select.options[select.selectedIndex];
+                var msg = {
+                    //you should valid attribute to data for JotForm
+                    //to be able to use youw widget as required
+                    valid: validity,//option.innerHTML == "None" ? false : true,
+                    value: option.innerHTML
+                }
+                // send value to JotForm
+                JFCustomWidget.sendSubmit(msg);
+            });
+        });
+
+    </script>
+</body>
+
+</html>
