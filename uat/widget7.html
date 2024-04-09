@@ -76,7 +76,8 @@
             JFCustomWidget.setFieldsValueByLabel(touchedfields);
             clearTimeout(timer);
             timer = setTimeout(() => {
-                var fields = [{ label: prefix + " (USD)" , value: e.value }, { label: prefix + " (AUD)", value: "temp aud val " + e.value }];
+                var fields = [{ label: prefix + " (USD)" , value: e.value }, { label: prefix + " (AUD)", value: "temp aud val " + e.value },{ label: prefix + " (SGD)", value: "temp aud val " + e.value }];
+                console.log(fields);
                 JFCustomWidget.setFieldsValueByLabel(fields);
                 return;
                     var fields = [];
