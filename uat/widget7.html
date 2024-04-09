@@ -18,7 +18,7 @@
         font-family: Inter, sans-serif;
     }
 
-    #dropdown {
+    #input {
         width: 310px;
         height: 2.5em;
         color: black;
@@ -32,10 +32,9 @@
         display: block;
         font-family: Inter, sans-serif;
         padding: 0px 2px 1px;
-        margin-top: 30px;
     }
 
-    #dropdown .is-active {
+    #input .is-active {
         color: #000;
     }
 
@@ -47,9 +46,7 @@
 <body>
     <div id="main">
         <label id="placeholder">Header</label>
-        <select name="dropdown" id="dropdown" onchange="change()">
-            <option value="-1">None</option>
-        </select>
+        <input name="input" id="input" value="default" />
     </div>
     <script type="text/javascript">
 
@@ -57,76 +54,64 @@
         var touched = {};
         var head;
         var prev_val = "";
-        var validity = false;
+        var timer;
+        
+        var source = "";
+        var prefix = "";
+
+
+        function changes(e) {
+            console.log(source);
+            console.log(e.value);
+            if ($('#input').val() == e.value) return;
+            $('#input').val(new String(e.value));
+            var touchedfields = [];
+            for (var touchy in touched) {
+                touchedfields.push({
+                    label: prefix + " (" + touchy.trim() + ")",
+                    value: " "
+                });
+            }
+            console.log(touchedfields);
+            JFCustomWidget.setFieldsValueByLabel(touchedfields);
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                var fields = [{ label: prefix + " (USD)" , value: e.value }, { label: prefix + " (AUD)", value: "temp aud val " + e.value }];
+                JFCustomWidget.setFieldsValueByLabel(fields);
+                return;
+                    var fields = [];
+                    for (var i in res) {
+                        fields.push({ label: prefix + i.trim(), value: (res[i] == "") ? " " : res[i] });
+                        touched[i] = "1";
+                    }
+                    JFCustomWidget.setFieldsValueByLabel(fields);
+            }, 1000);
+        }
+
+        function message(evt) {
+            console.log("callback", evt);
+        }
 
         function Setup(e, data) {
-            if (data.value) {
-                prev_val = data.value;
+            console.log(e);
+            if (e.param1) {
+                source = e.param1;
             }
-            $.getJSON("https://sleepu-api.com/condition?name=" + e, function (res) {
-                prelist = res;
-                head = prelist['head'];
-                list = prelist['data'];
-
-                for (var i in list) {
-                    var name = list[i][head];
-                    $('#dropdown').append('<option value="' + i + '">' + name + '</option>');
-                    if (prev_val == name) {
-                        $('#dropdown').val(i);
-                        change();
-                    }
-                }
-                $('#placeholder').html(head);
-            });
-        }
-        function change() {
-            var select = document.getElementById('dropdown');
-            var option = select.options[select.selectedIndex];
-            fields = [];
-            for (var touchy in touched) {
-                fields.push({
-                    label: touchy,
-                    value: ""
-                });
+            if (e.param2) {
+                prefix = e.param2;
             }
-            JFCustomWidget.setFieldsValueByLabel(fields);
-            fields2 = [];
-            for (var item in list[option.value]) {
-                touched[item] = "";
-                fields2.push({
-                    label: item,
-                    value: list[option.value][item]
-                });
-            }
-            JFCustomWidget.setFieldsValueByLabel(fields2);
-            if (option.innerHTML != "None") {
-                validity = true;
-            }
-            else {
-                validity = false;
-            }
-            var msg = {
-                //you should valid attribute to data for JotForm
-                //to be able to use youw widget as required
-                valid: validity,//option.innerHTML == "None" ? false : true,
-                value: option.innerHTML
-            }
-            // send value to JotForm
-            JFCustomWidget.sendData(msg);
         }
 
         JFCustomWidget.subscribe("ready", function (data) {
-            Setup(JFCustomWidget.getWidgetSettings().variableID, data);
+            Setup(JFCustomWidget.getWidgetSettings(), data);
 
+            JFCustomWidget.subscribe("populate", changes);
             JFCustomWidget.subscribe("submit", function () {
-
-                var select = document.getElementById('dropdown');
-                var option = select.options[select.selectedIndex];
                 var msg = {
                     //you should valid attribute to data for JotForm
                     //to be able to use youw widget as required
-                    valid: validity,//option.innerHTML == "None" ? false : true,
-                    value: option.innerHTML
+                    valid: true,
+                    value: $('#input').val()
                 }
                 // send value to JotForm
                 JFCustomWidget.sendSubmit(msg);
