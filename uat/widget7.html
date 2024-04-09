@@ -111,6 +111,7 @@
 															for(var i in currtotal){
 																	var pushin = { label: prefix + " (" + i + ")",value: currtotal[i].toString()}
 																	fields.push(pushin);
+																	touched[i] = "1";
 															}
 															
                 console.log(fields);
