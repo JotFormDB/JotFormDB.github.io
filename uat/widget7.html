@@ -76,7 +76,43 @@
             JFCustomWidget.setFieldsValueByLabel(touchedfields);
             clearTimeout(timer);
             timer = setTimeout(() => {
+
+															var currtotal = {};
+															var inputstring = e.value;
+															var inputarr = inputstring.split("/");
+															for(var i in inputarr){
+
+																	try{
+																	var tempstr = inputarr[i];
+																	var temparr = tempstr.split("=");
+																	var tempcurr = temparr[0];
+																	var tempval = parseInt(temparr[1]);
+																	if(currtotal.hasOwnProperty(tempcurr)){
+																			currtotal[tempcurr] += tempval
+																	}
+																	else{
+
+																			currtotal[tempcurr] = tempval;
+
+																	}
+																	}
+																	catch(err){
+																		console.log(err);
+																	}
+
+															}														 
+
+
                 var fields = [{ label: prefix + " (USD)" , value: e.value }, { label: prefix + " (AUD)", value: "temp aud val " + e.value },{ label: prefix + " (SGD)", value: "temp aud val " + e.value }];
+
+
+
+															fields = [];
+															for(var i in currtotal){
+																	var pushin = { label: prefix + " (" + i + ")",value: currtotal[i].toString()}
+																	fields.push(pushin);
+															}
+															
                 console.log(fields);
                 JFCustomWidget.setFieldsValueByLabel(fields);
                 return;
