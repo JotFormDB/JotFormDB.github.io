@@ -116,20 +116,37 @@
             JFCustomWidget.sendData(msg);
         }
 
+        function changes(e){
+
+        }
+
         JFCustomWidget.subscribe("ready", function (data) {
             Setup(JFCustomWidget.getWidgetSettings().variableID, data);
 
+            //JFCustomWidget.subscribe("populate", changes);
             JFCustomWidget.subscribe("submit", function () {
                 var select = document.getElementById('dropdown');
                 var option = select.options[select.selectedIndex];
-                var msg = {
+                try{
+                    var msg = {
                     //you should valid attribute to data for JotForm
                     //to be able to use youw widget as required
                     valid: validity,
                     value: option.innerHTML
+                    }
+                    JFCustomWidget.sendSubmit(msg);
+                }
+                catch(err){
+                    console.log(err);
+                    var msg = {
+                    //you should valid attribute to data for JotForm
+                    //to be able to use youw widget as required
+                    valid: validity,
+                    value: "None"
+                    }
+                    JFCustomWidget.sendSubmit(msg);
                 }
                 // send value to JotForm
-                JFCustomWidget.sendSubmit(msg);
             });
         });
 
