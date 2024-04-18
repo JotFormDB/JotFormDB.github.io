@@ -109,7 +109,7 @@
 
 															fields = [];
 															for(var i in currtotal){
-																	var pushin = { label: prefix + " (" + i + ")",value: currtotal[i].toString()}
+																	var pushin = { label: prefix + " (" + i + ")",value: currtotal[i].toFixed(2).toString()}
 																	fields.push(pushin);
 																	touched[i] = "1";
 															}
