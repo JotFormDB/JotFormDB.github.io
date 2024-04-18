@@ -86,7 +86,7 @@
 																	var tempstr = inputarr[i];
 																	var temparr = tempstr.split("=");
 																	var tempcurr = temparr[0];
-																	var tempval = parseInt(temparr[1]);
+																	var tempval = parseFloat(temparr[1]);
 																	if(currtotal.hasOwnProperty(tempcurr)){
 																			currtotal[tempcurr] += tempval
 																	}
