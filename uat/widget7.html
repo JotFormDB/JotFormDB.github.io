@@ -55,7 +55,7 @@
         var head;
         var prev_val = "";
         var timer;
-        
+
         var source = "";
         var prefix = "";
 
@@ -77,57 +77,47 @@
             clearTimeout(timer);
             timer = setTimeout(() => {
 
-															var currtotal = {};
-															var inputstring = e.value;
-															var inputarr = inputstring.split("/");
-															for(var i in inputarr){
+                var currtotal = {};
+                var inputstring = e.value;
+                var inputarr = inputstring.split("/");
+                for (var i in inputarr) {
 
-																	try{
-																	var tempstr = inputarr[i];
-																	var temparr = tempstr.split("=");
-																	var tempcurr = temparr[0];
-																	var tempval = parseFloat(temparr[1]);
-																	if(currtotal.hasOwnProperty(tempcurr)){
-																			currtotal[tempcurr] += tempval
-																	}
-																	else{
+                    try {
+                        var tempstr = inputarr[i];
+                        var temparr = tempstr.split("=");
+                        var tempcurr = temparr[0];
+                        var tempval = parseFloat(temparr[1]);
+                        if (currtotal.hasOwnProperty(tempcurr)) {
+                            currtotal[tempcurr] += tempval
+                        }
+                        else {
 
-																			currtotal[tempcurr] = tempval;
+                            currtotal[tempcurr] = tempval;
 
-																	}
-																	}
-																	catch(err){
-																		console.log(err);
-																	}
-
-															}														 
-
-
-                var fields = [{ label: prefix + " (USD)" , value: e.value }, { label: prefix + " (AUD)", value: "temp aud val " + e.value },{ label: prefix + " (SGD)", value: "temp aud val " + e.value }];
-
-
-
-															fields = [];
-		    var gtotal = parseFloat("0.00");
-															for(var i in currtotal){
-																	var pushin = { label: prefix + " (" + i + ")",value: currtotal[i].toFixed(2).toString()}
-																	fields.push(pushin);
-																	touched[i] = "1";
-																gtotal += currtotal[i].toFixed(2);
-															}
-															
-                console.log(gtotal);
-		    console.log(gtotal.toFixed(2));
-		    var calall = { label: prefix + " (All)",value: gtotal.toFixed(2).toString()};
-		    fields.push(calall);
-                JFCustomWidget.setFieldsValueByLabel(fields);
-                return;
-                    var fields = [];
-                    for (var i in res) {
-                        fields.push({ label: prefix + i.trim(), value: (res[i] == "") ? " " : res[i] });
-                        touched[i] = "1";
+                        }
                     }
-                    JFCustomWidget.setFieldsValueByLabel(fields);
+                    catch (err) {
+                        console.log(err);
+                    }
+
+                }
+
+
+                var fields = [{ label: prefix + " (USD)", value: e.value }, { label: prefix + " (AUD)", value: "temp aud val " + e.value }, { label: prefix + " (SGD)", value: "temp aud val " + e.value }];
+                fields = [];
+                var gtotal = parseFloat("0.00");
+                for (var i in currtotal) {
+                    var pushin = { label: prefix + " (" + i + ")", value: currtotal[i].toFixed(2).toString() }
+                    fields.push(pushin);
+                    touched[i] = "1";
+                    gtotal += parseFloat(currtotal[i].toFixed(2));
+                }
+
+                console.log(gtotal);
+                console.log(gtotal.toFixed(2));
+                var calall = { label: prefix + " (All)", value: gtotal.toFixed(2).toString() };
+                fields.push(calall);
+                JFCustomWidget.setFieldsValueByLabel(fields);
             }, 1000);
         }
 
