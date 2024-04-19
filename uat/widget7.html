@@ -108,13 +108,17 @@
 
 
 															fields = [];
+		    var gtotal = 0;
 															for(var i in currtotal){
 																	var pushin = { label: prefix + " (" + i + ")",value: currtotal[i].toFixed(2).toString()}
 																	fields.push(pushin);
 																	touched[i] = "1";
+																gtotal += currtotal[i].toFixed(2);
 															}
 															
-                console.log(fields);
+                //console.log(fields);
+		    var calall = { label: prefix + " (All)",value: gtotal.toFixed(2).toString()};
+		    fields.push(calall);
                 JFCustomWidget.setFieldsValueByLabel(fields);
                 return;
                     var fields = [];
