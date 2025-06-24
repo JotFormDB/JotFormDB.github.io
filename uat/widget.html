@@ -100,7 +100,7 @@
 
             var concat = "";
             for (var n = 0; n < layers.length; n++) {
-                concat += ($("#dup" + n + " > .dropdown").val() + ((n + 1 < layers.length) ? '->' : ''));
+                concat += ($("#dup" + n + " > .dropdown").val() + ((n + 1 < layers.length) ? '--' : ''));
             }
 
             if (concat.includes("None")) {
@@ -140,7 +140,7 @@
 
         function Setup(e, data = null) {
             if (data.value) {
-                prev_val = data.value.split("->");
+                prev_val = data.value.split("--");
             }
             $.getJSON("https://sleepu-api.com/condition?name=" + e, function (res) {
 
@@ -202,7 +202,7 @@
             JFCustomWidget.subscribe("submit", function () {
                 var concat = "";
                 for (var n = 0; n < layers.length; n++) {
-                    concat += ($("#dup" + n + " > .dropdown").val() + ((n + 1 < layers.length) ? '->' : ''));
+                    concat += ($("#dup" + n + " > .dropdown").val() + ((n + 1 < layers.length) ? '--' : ''));
                 }
                 var msg = {
                     //you should valid attribute to data for JotForm
