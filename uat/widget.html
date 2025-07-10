@@ -140,7 +140,11 @@
 
         function Setup(e, data = null) {
             if (data.value) {
-                prev_val = data.value.split("--");
+                var splitstr = "--";
+                if(data.value.includes("->")){
+                    splitstr = "->";
+                }
+                prev_val = data.value.split(splitstr);
             }
             $.getJSON("https://sleepu-api.com/condition?name=" + e, function (res) {
 
