@@ -146,7 +146,8 @@
                 }
                 prev_val = data.value.split(splitstr);
             }
-            $.getJSON("https://sleepu-api.com/condition?name=" + e, function (res) {
+            $.getJSON("https://intranet.setsco.com:4001/condition?name=" + e, function (res) {
+            //$.getJSON("https://sleepu-api.com/condition?name=" + e, function (res) {
 
                 for (var i in res.data) {
                     //get all layers
