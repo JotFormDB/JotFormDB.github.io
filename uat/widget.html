@@ -146,6 +146,39 @@
                 }
                 prev_val = data.value.split(splitstr);
             }
+
+            if(e == "Food_Clients"){
+                var res = {"head":"Client","data":[{"Client":"Home Team Academy","Section":"Caterer"},{"Client":"Hwa Chong Institute","Section":"High School"},{"Client":"Hwa Chong Institute","Section":"Boarding school"},{"Client":"Hwa Chong Institute","Section":"College"},{"Client":"LPH Catering","Section":"Caterer"},{"Client":"NUS ","Section":"Raffles Hall"},{"Client":"NUS ","Section":"Ridge View Residential College"},{"Client":"NUS ","Section":"Cinnamon/Tembusu College"},{"Client":"NUS ","Section":"CAPT/RC4 College"},{"Client":"NUS ","Section":"King Edward VII"},{"Client":"NUS ","Section":"Eusoff"},{"Client":"NUS ","Section":"Temasek"},{"Client":"NUS ","Section":"Sheares"},{"Client":"NUS ","Section":"Elm & Saga"},{"Client":"NUS ","Section":"Cendana"},{"Client":"NUS ","Section":"Kent Ridge"},{"Client":"Oriental Delight Catering ","Section":"Caterer"},{"Client":"SATS ","Section":"HTA"},{"Client":"SATS ","Section":"A3"},{"Client":"SATS ","Section":"A5"},{"Client":"SATS ","Section":"B3"},{"Client":"SATS ","Section":"SPC"},{"Client":"SCDF","Section":"NSTC"},{"Client":"SCDF","Section":"CDA"},{"Client":"Sentosa Golf Club","Section":"Caterer"},{"Client":"Singapore Institute Of Technology","Section":"SP"},{"Client":"Singapore Institute Of Technology","Section":"TP"},{"Client":"Singapore Institute Of Technology","Section":"NYP"},{"Client":"Singapore Institute Of Technology","Section":"Dover campus"},{"Client":"Singapore Sports School","Section":"Caterer"},{"Client":"The Singapore Island Country Club","Section":"Island Kitchen"},{"Client":"The Singapore Island Country Club","Section":"Bukit Kitchen"},{"Client":"YRI ","Section":"A3"},{"Client":"YRI ","Section":"A5"},{"Client":"YRI ","Section":"B3"},{"Client":"YRI ","Section":"SPC"},{"Client":"YRI ","Section":"Elsie Kitchen"},{"Client":"YRI ","Section":"NFC"},{"Client":"YRI ","Section":"SATS"},{"Client":"YRI ","Section":"Chili Api"},{"Client":"YRI ","Section":"EATZ Catering"}]};
+
+                for (var i in res.data) {
+                    //get all layers
+                    for (var a in res.data[i]) {
+                        layers.push(a);
+                    }
+                    break;
+                }
+
+                for (var i in res.data) {
+                    var curr = res.data[i];
+                    push(dropdownlist, curr, 0);
+                }
+
+                for (var i in layers) {
+                    $('#main').append(build(i, layers[i]));
+                }
+                setuphead();
+                recoverPrev();
+
+                prelist = res;
+                head = prelist['head'];
+                list = prelist['data'];
+
+                for (var i in list) {
+                    var name = list[i][head];
+                }
+                $('#placeholder').html(head);
+            }
+            else{
             $.getJSON("https://intranet.setsco.com:4001/condition?name=" + e, function (res) {
             //$.getJSON("https://sleepu-api.com/condition?name=" + e, function (res) {
 
@@ -177,6 +210,7 @@
                 }
                 $('#placeholder').html(head);
             });
+            }
         }
         function change() {
             var select = document.getElementById('dropdown');
